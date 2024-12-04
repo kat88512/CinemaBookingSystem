@@ -2,7 +2,7 @@
 {
     public class SeatStatus
     {
-        public Guid SeatId { get; private init; }
+        public Seat Seat { get; private init; }
         public bool IsTaken { get; private set; }
     }
 }
