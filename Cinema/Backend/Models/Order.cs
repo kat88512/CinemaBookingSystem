@@ -1,4 +1,6 @@
-﻿namespace Cinema.Backend.Models
+﻿using Cinema.Backend.Models.Enums;
+
+namespace Cinema.Backend.Models
 {
     public class Order
     {
