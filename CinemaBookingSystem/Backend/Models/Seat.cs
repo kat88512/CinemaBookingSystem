@@ -1,9 +1,9 @@
 ﻿namespace Cinema.Backend.Models
 {
-    public class Seat
+    public struct Seat
     {
-        public int Row { get; private set; }
-        public int Number { get; private set; }
+        public int Row { get; }
+        public int Number { get; }
 
         public Seat(int row, int number)
         {
