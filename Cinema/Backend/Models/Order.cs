@@ -5,7 +5,7 @@ namespace Cinema.Backend.Models
     public class Order
     {
         public Guid Id { get; private init; } = Guid.NewGuid();
-        public OrderStatus Status { get; private set; }
-        public int ValueToPay { get; private set; }
+        public OrderStatus Status { get; private set; } = OrderStatus.InProgress;
+        public int ValueToPay { get; private set; } = 0;
     }
 }
