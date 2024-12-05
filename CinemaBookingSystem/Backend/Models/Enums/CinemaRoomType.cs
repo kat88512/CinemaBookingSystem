@@ -4,11 +4,11 @@ namespace Cinema.Backend.Models.Enums
 {
     public class CinemaRoomType : Enumeration
     {
-        public static CinemaRoomType Small =
+        public static readonly CinemaRoomType Small =
             new(1, nameof(Small), rowsCount: 8, seatsPerRowCount: 10);
-        public static CinemaRoomType Medium =
+        public static readonly CinemaRoomType Medium =
             new(2, nameof(Medium), rowsCount: 12, seatsPerRowCount: 10);
-        public static CinemaRoomType Large =
+        public static readonly CinemaRoomType Large =
             new(3, nameof(Large), rowsCount: 16, seatsPerRowCount: 10);
 
         public int RowsCount { get; private init; }

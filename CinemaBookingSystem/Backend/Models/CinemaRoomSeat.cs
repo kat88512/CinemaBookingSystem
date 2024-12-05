@@ -1,6 +1,6 @@
 ﻿namespace Cinema.Backend.Models
 {
-    public struct CinemaRoomSeat
+    public readonly struct CinemaRoomSeat
     {
         public int Row { get; }
         public int Number { get; }
