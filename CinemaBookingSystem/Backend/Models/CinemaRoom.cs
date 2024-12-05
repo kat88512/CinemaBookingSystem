@@ -5,13 +5,13 @@ namespace Cinema.Backend.Models
     public class CinemaRoom
     {
         public int Id { get; private set; }
-        public CinemaRoomType Type { get; private set; }
+        public CinemaRoomType RoomType { get; private set; }
 
         public List<Seat> Seats { get; private set; }
 
-        public CinemaRoom(CinemaRoomType type)
+        public CinemaRoom(CinemaRoomType roomType)
         {
-            Type = type;
+            RoomType = roomType;
             Seats = GenerateSeats();
         }
 
@@ -19,8 +19,8 @@ namespace Cinema.Backend.Models
         {
             var seats = new List<Seat>();
 
-            var rowsCount = Type.RowsCount;
-            var seatsPerRowCount = Type.SeatsPerRowCount;
+            var rowsCount = RoomType.RowsCount;
+            var seatsPerRowCount = RoomType.SeatsPerRowCount;
 
             for (int i = 0; i < rowsCount; i++)
             {

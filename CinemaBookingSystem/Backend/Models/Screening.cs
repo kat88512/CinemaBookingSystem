@@ -6,10 +6,8 @@ namespace Cinema.Backend.Models
     {
         public Guid Id { get; private init; } = Guid.NewGuid();
         public Movie Movie { get; private init; }
+        public Cinema Cinema { get; private init; }
         public CinemaRoom CinemaRoom { get; private init; }
-
-        public List<SeatStatus> SeatOccupancy { get; private set; }
-
         public DateTime TimeFrom { get; private set; }
         public DateTime TimeTo { get; private set; }
         public int DurationInMinutes => (TimeTo - TimeFrom).Duration().Minutes;
@@ -18,6 +16,7 @@ namespace Cinema.Backend.Models
 
         public Screening(
             Movie movie,
+            Cinema cinema,
             CinemaRoom cinemaRoom,
             DateTime timeFrom,
             DateTime timeTo,
@@ -25,8 +24,8 @@ namespace Cinema.Backend.Models
         )
         {
             Movie = movie;
+            Cinema = cinema;
             CinemaRoom = cinemaRoom;
-            SeatOccupancy = cinemaRoom.Seats.Select(s => new SeatStatus(s)).ToList();
             TimeFrom = timeFrom;
             TimeTo = timeTo;
             VideoTechnology = videoTechnology;
