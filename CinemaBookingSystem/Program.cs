@@ -5,6 +5,4 @@ var seeder = new MainSeeder();
 
 seeder.Seed();
 
-var mainView = new MainView();
-
-mainView.Display();
+MainView.Instance.Display();

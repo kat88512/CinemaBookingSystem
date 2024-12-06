@@ -14,7 +14,6 @@ namespace CinemaBookingSystem.Views
             ScreeningSeatInMemoryRepository.Instance;
 
         private Screening _screening = null!;
-        private IEnumerable<ScreeningSeat> _screeningSeats = [];
 
         public SeatView(Guid screeningId)
         {
@@ -40,8 +39,6 @@ namespace CinemaBookingSystem.Views
             }
 
             _screening = screening;
-
-            _screeningSeats = _screeningSeatRepository.GetAll(screening.Id);
         }
 
         private void PrintSeats()
@@ -60,11 +57,22 @@ namespace CinemaBookingSystem.Views
 
                 foreach (var seat in row)
                 {
+                    if (seat.IsTaken)
+                    {
+                        Console.BackgroundColor = ConsoleColor.Red;
+                    }
+                    else
+                    {
+                        Console.BackgroundColor = ConsoleColor.Green;
+                    }
+
                     Console.Write(seat + " ");
                 }
 
                 Console.WriteLine();
             }
+
+            Console.BackgroundColor = ConsoleColor.Black;
         }
     }
 }

@@ -6,6 +6,10 @@ namespace CinemaBookingSystem.Views
 {
     internal class MainView
     {
+        public static MainView Instance => _instance;
+
+        private static readonly MainView _instance = new MainView();
+
         private readonly ScreeningInMemoryRepository _screeningRepository =
             ScreeningInMemoryRepository.Instance;
         private readonly CinemaInMemoryRepository _cinemaRepository =
@@ -14,7 +18,7 @@ namespace CinemaBookingSystem.Views
         private Cinema _cinema = null!;
         private List<Screening> _screenings = [];
 
-        public MainView() { }
+        private MainView() { }
 
         public void Display()
         {
