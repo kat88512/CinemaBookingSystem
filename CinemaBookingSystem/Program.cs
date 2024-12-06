@@ -6,12 +6,14 @@ var cinemaRepository = new CinemaInMemoryRepository();
 var cinemaRoomRepository = new CinemaRoomInMemoryRepository();
 var movieRepository = new MovieInMemoryRepository();
 var screeningRepository = new ScreeningInMemoryRepository();
+var screeningSeatRepository = new ScreeningSeatInMemoryRepository();
 
 var seeder = new MainSeeder(
     movieRepository,
     cinemaRepository,
     cinemaRoomRepository,
-    screeningRepository
+    screeningRepository,
+    screeningSeatRepository
 );
 
 seeder.Seed();

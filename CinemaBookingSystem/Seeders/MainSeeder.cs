@@ -10,6 +10,7 @@ namespace CinemaBookingSystem.Seeders
         public readonly ICinemaRepository _cinemaRepository;
         public readonly ICinemaRoomRepository _cinemaRoomRepository;
         public readonly IScreeningRepository _screeningRepository;
+        public readonly IScreeningSeatRepository _screeningSeatRepository;
 
         private readonly Random _randomizer = new();
 
@@ -17,13 +18,15 @@ namespace CinemaBookingSystem.Seeders
             IMovieRepository movieRepository,
             ICinemaRepository cinemaRepository,
             ICinemaRoomRepository cinemaRoomRepository,
-            IScreeningRepository screeningRepository
+            IScreeningRepository screeningRepository,
+            IScreeningSeatRepository screeningSeatRepository
         )
         {
             _movieRepository = movieRepository;
             _cinemaRepository = cinemaRepository;
             _cinemaRoomRepository = cinemaRoomRepository;
             _screeningRepository = screeningRepository;
+            _screeningSeatRepository = screeningSeatRepository;
         }
 
         public void Seed()
@@ -33,7 +36,7 @@ namespace CinemaBookingSystem.Seeders
             AddCinema();
             AddCinemaRooms();
             AddMovies();
-            AddScreenings(screeningsCount);
+            AddScreeningsAndSeats(screeningsCount);
         }
 
         private void AddCinema()
@@ -57,7 +60,7 @@ namespace CinemaBookingSystem.Seeders
             }
         }
 
-        private void AddScreenings(int count)
+        private void AddScreeningsAndSeats(int count)
         {
             for (int i = 0; i < count; i++)
             {
@@ -81,10 +84,31 @@ namespace CinemaBookingSystem.Seeders
 
                 var videoTechnology = (VideoTechnology)_randomizer.Next(0, 1);
 
-                _screeningRepository.Add(
-                    new Screening(movie, cinemaRoom, startDate, endDate, videoTechnology)
+                var screening = new Screening(
+                    movie,
+                    cinemaRoom,
+                    startDate,
+                    endDate,
+                    videoTechnology
                 );
+
+                _screeningRepository.Add(screening);
+
+                AddScreeningSeats(screening);
             }
+        }
+
+        private void AddScreeningSeats(Screening screening)
+        {
+            var screeningSeats = screening
+                .CinemaRoom.RoomSeats.Select(rs => new ScreeningSeat(
+                    screening.Id,
+                    rs.Row,
+                    rs.Number
+                ))
+                .ToList();
+
+            _screeningSeatRepository.AddBatch(screeningSeats);
         }
     }
 }

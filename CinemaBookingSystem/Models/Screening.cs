@@ -7,7 +7,6 @@ namespace CinemaBookingSystem.Models
         public Guid Id { get; private init; } = Guid.NewGuid();
         public Movie Movie { get; private init; }
         public CinemaRoom CinemaRoom { get; private init; }
-        public ICollection<ScreeningSeat> AvailableSeats { get; private set; }
         public DateTime TimeFrom { get; private set; }
         public DateTime TimeTo { get; private set; }
         public int DurationInMinutes => (TimeTo - TimeFrom).Duration().Minutes;
@@ -27,14 +26,6 @@ namespace CinemaBookingSystem.Models
             TimeFrom = timeFrom;
             TimeTo = timeTo;
             VideoTechnology = videoTechnology;
-            AvailableSeats = GenerateAvailableSeats();
-        }
-
-        private List<ScreeningSeat> GenerateAvailableSeats()
-        {
-            return CinemaRoom
-                .RoomSeats.Select(rs => new ScreeningSeat(Id, rs.Row, rs.Number))
-                .ToList();
         }
     }
 }
