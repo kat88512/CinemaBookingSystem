@@ -5,12 +5,14 @@ namespace CinemaBookingSystem.Models
     public class CinemaRoom
     {
         public int Id { get; private set; }
+        public Guid CinemaId { get; private init; }
         public CinemaRoomType RoomType { get; private set; }
 
         public List<CinemaRoomSeat> RoomSeats { get; private set; }
 
-        public CinemaRoom(CinemaRoomType roomType)
+        public CinemaRoom(Guid cinemaId, CinemaRoomType roomType)
         {
+            CinemaId = cinemaId;
             RoomType = roomType;
             RoomSeats = GenerateSeats();
         }
