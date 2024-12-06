@@ -7,14 +7,19 @@ namespace CinemaBookingSystem.Repositories
     {
         private readonly List<Cinema> _cinemas = new List<Cinema>();
 
-        public void Add(Cinema cinema)
-        {
-            _cinemas.Add(cinema);
-        }
-
         public Cinema? GetById(Guid id)
         {
             return _cinemas.FirstOrDefault(c => c.Id == id);
+        }
+
+        public IEnumerable<Cinema> GetAll()
+        {
+            return _cinemas;
+        }
+
+        public void Add(Cinema cinema)
+        {
+            _cinemas.Add(cinema);
         }
     }
 }

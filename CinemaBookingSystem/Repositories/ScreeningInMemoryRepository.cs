@@ -16,5 +16,10 @@ namespace CinemaBookingSystem.Repositories
         {
             return _screenings.FirstOrDefault(s => s.Id == id);
         }
+
+        public void Add(Screening screening)
+        {
+            _screenings.Add(screening);
+        }
     }
 }

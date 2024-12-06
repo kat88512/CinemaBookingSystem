@@ -6,5 +6,6 @@ namespace CinemaBookingSystem.Repositories.Interfaces
     {
         Screening? GetById(Guid id);
         IEnumerable<Screening> GetAll(Guid cinemaId);
+        void Add(Screening screening);
     }
 }

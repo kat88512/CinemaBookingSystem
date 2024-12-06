@@ -4,8 +4,8 @@ namespace CinemaBookingSystem.Repositories.Interfaces
 {
     internal interface ICinemaRepository
     {
-        void Add(Cinema cinema);
-
         Cinema? GetById(Guid id);
+        IEnumerable<Cinema> GetAll();
+        void Add(Cinema cinema);
     }
 }
