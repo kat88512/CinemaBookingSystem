@@ -5,7 +5,14 @@ namespace CinemaBookingSystem.Repositories
 {
     internal class ScreeningSeatInMemoryRepository : IScreeningSeatRepository
     {
+        public static ScreeningSeatInMemoryRepository Instance => _instance;
+
+        private static readonly ScreeningSeatInMemoryRepository _instance =
+            new ScreeningSeatInMemoryRepository();
+
         private readonly List<ScreeningSeat> _screeningSeats = [];
+
+        private ScreeningSeatInMemoryRepository() { }
 
         public void Add(ScreeningSeat screeningSeat)
         {

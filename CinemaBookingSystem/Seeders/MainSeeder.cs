@@ -1,5 +1,6 @@
 ﻿using CinemaBookingSystem.Models;
 using CinemaBookingSystem.Models.Enums;
+using CinemaBookingSystem.Repositories;
 using CinemaBookingSystem.Repositories.Interfaces;
 
 namespace CinemaBookingSystem.Seeders
@@ -14,19 +15,13 @@ namespace CinemaBookingSystem.Seeders
 
         private readonly Random _randomizer = new();
 
-        public MainSeeder(
-            IMovieRepository movieRepository,
-            ICinemaRepository cinemaRepository,
-            ICinemaRoomRepository cinemaRoomRepository,
-            IScreeningRepository screeningRepository,
-            IScreeningSeatRepository screeningSeatRepository
-        )
+        public MainSeeder()
         {
-            _movieRepository = movieRepository;
-            _cinemaRepository = cinemaRepository;
-            _cinemaRoomRepository = cinemaRoomRepository;
-            _screeningRepository = screeningRepository;
-            _screeningSeatRepository = screeningSeatRepository;
+            _movieRepository = MovieInMemoryRepository.Instance;
+            _cinemaRepository = CinemaInMemoryRepository.Instance;
+            _cinemaRoomRepository = CinemaRoomInMemoryRepository.Instance;
+            _screeningRepository = ScreeningInMemoryRepository.Instance;
+            _screeningSeatRepository = ScreeningSeatInMemoryRepository.Instance;
         }
 
         public void Seed()

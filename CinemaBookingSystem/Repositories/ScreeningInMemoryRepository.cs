@@ -5,7 +5,14 @@ namespace CinemaBookingSystem.Repositories
 {
     internal class ScreeningInMemoryRepository : IScreeningRepository
     {
+        public static ScreeningInMemoryRepository Instance => _instance;
+
+        private static readonly ScreeningInMemoryRepository _instance =
+            new ScreeningInMemoryRepository();
+
         private readonly List<Screening> _screenings = [];
+
+        private ScreeningInMemoryRepository() { }
 
         public IEnumerable<Screening> GetAll(Guid cinemaId)
         {
