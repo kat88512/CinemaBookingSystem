@@ -6,7 +6,6 @@ namespace CinemaBookingSystem.Models
     {
         public Guid Id { get; private init; } = Guid.NewGuid();
         public Movie Movie { get; private init; }
-        public Cinema Cinema { get; private init; }
         public CinemaRoom CinemaRoom { get; private init; }
         public ICollection<ScreeningSeat> AvailableSeats { get; private set; }
         public DateTime TimeFrom { get; private set; }
@@ -17,7 +16,6 @@ namespace CinemaBookingSystem.Models
 
         public Screening(
             Movie movie,
-            Cinema cinema,
             CinemaRoom cinemaRoom,
             DateTime timeFrom,
             DateTime timeTo,
@@ -25,7 +23,6 @@ namespace CinemaBookingSystem.Models
         )
         {
             Movie = movie;
-            Cinema = cinema;
             CinemaRoom = cinemaRoom;
             TimeFrom = timeFrom;
             TimeTo = timeTo;
