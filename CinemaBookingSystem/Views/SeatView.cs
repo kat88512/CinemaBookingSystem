@@ -14,6 +14,7 @@ namespace CinemaBookingSystem.Views
             ScreeningSeatInMemoryRepository.Instance;
 
         private Screening _screening = null!;
+        private IEnumerable<ScreeningSeat> _screeningSeats;
 
         public SeatView(Guid screeningId)
         {
@@ -29,7 +30,7 @@ namespace CinemaBookingSystem.Views
             PrintSeats();
             PrintKey();
 
-            ShowMenu();
+            ChooseSeats();
         }
 
         private void FetchData()
@@ -42,6 +43,7 @@ namespace CinemaBookingSystem.Views
             }
 
             _screening = screening;
+            _screeningSeats = _screeningSeatRepository.GetAll(_screening.Id);
         }
 
         private void PrintSeats()
@@ -80,18 +82,39 @@ namespace CinemaBookingSystem.Views
 
         private void PrintKey()
         {
-            Console.WriteLine("\n");
             Console.WriteLine("Seat availability key:\n");
 
             Console.BackgroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine("Seat available");
 
             Console.BackgroundColor = ConsoleColor.DarkRed;
-            Console.WriteLine("Seat taken");
+            Console.WriteLine("Seat taken\n");
 
             Console.BackgroundColor = ConsoleColor.Black;
         }
 
-        private void ShowMenu() { }
+        private void ChooseSeats()
+        {
+            while (true)
+            {
+                Console.WriteLine("Choose available seat: ");
+                var input = Console.ReadLine();
+                var parseSuccess = int.TryParse(input, out var number);
+
+                var rowNumber = number / 10;
+                var seatNumber = number - (rowNumber * 10);
+
+                if (
+                    !parseSuccess
+                    || !_screeningSeats.Any(ss => ss.Row == rowNumber && ss.Number == seatNumber)
+                )
+                {
+                    Console.WriteLine("Incorrect number!");
+                    continue;
+                }
+
+                var seatId = _screeningSeats.FirstOrDefault();
+            }
+        }
     }
 }

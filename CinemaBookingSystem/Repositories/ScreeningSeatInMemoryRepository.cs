@@ -39,5 +39,11 @@ namespace CinemaBookingSystem.Repositories
         {
             return _screeningSeats.FirstOrDefault(ss => ss.Id == id);
         }
+
+        public void Update(ScreeningSeat screeningSeat)
+        {
+            var item = _screeningSeats.FirstOrDefault(ss => ss.Id == screeningSeat.Id);
+            item = screeningSeat;
+        }
     }
 }

@@ -16,6 +16,11 @@
             IsTaken = isTaken;
         }
 
+        public void ChangeStatus(bool isTaken)
+        {
+            IsTaken = isTaken;
+        }
+
         public override string ToString()
         {
             return $"{Row}{Number}";

@@ -27,7 +27,7 @@ namespace CinemaBookingSystem.Views
             FetchData();
 
             PrintScreenings();
-            var screening = GetScreeningChoice();
+            var screening = ChooseScreening();
 
             new SeatView(screening.Id).Display();
         }
@@ -54,16 +54,16 @@ namespace CinemaBookingSystem.Views
             }
         }
 
-        private Screening GetScreeningChoice()
+        private Screening ChooseScreening()
         {
             while (true)
             {
                 Console.Write($"\nPlease choose a screening [0-{_screenings.Count - 1}]: ");
 
                 var input = Console.ReadLine();
-                var parseResult = int.TryParse(input, out var number);
+                var parseSuccess = int.TryParse(input, out var number);
 
-                if (parseResult is false || _screenings.ElementAtOrDefault(number) is null)
+                if (!parseSuccess || _screenings.ElementAtOrDefault(number) is null)
                 {
                     Console.WriteLine("Incorrect number!");
                 }

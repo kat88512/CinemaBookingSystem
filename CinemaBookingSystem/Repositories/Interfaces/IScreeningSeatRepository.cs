@@ -8,5 +8,6 @@ namespace CinemaBookingSystem.Repositories.Interfaces
         void AddBatch(IEnumerable<ScreeningSeat> screeningSeats);
         IEnumerable<ScreeningSeat> GetAll(Guid screeningId);
         ScreeningSeat? GetById(Guid id);
+        void Update(ScreeningSeat screeningSeat);
     }
 }
