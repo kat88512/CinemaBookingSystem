@@ -12,6 +12,11 @@ namespace CinemaBookingSystem.Repositories
             return _cinemas.FirstOrDefault(c => c.Id == id);
         }
 
+        public Cinema? GetFirst()
+        {
+            return _cinemas.FirstOrDefault();
+        }
+
         public IEnumerable<Cinema> GetAll()
         {
             return _cinemas;

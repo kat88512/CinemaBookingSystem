@@ -1,8 +1,6 @@
 ﻿using CinemaBookingSystem.Repositories;
 using CinemaBookingSystem.Seeders;
-using CinemaBookingSystem.Services;
-
-var cinemaId = SeedData.Cinema.Id;
+using CinemaBookingSystem.Views;
 
 var cinemaRepository = new CinemaInMemoryRepository();
 var cinemaRoomRepository = new CinemaRoomInMemoryRepository();
@@ -18,6 +16,6 @@ var seeder = new MainSeeder(
 
 seeder.Seed();
 
-var screeningService = new ScreeningService(screeningRepository);
+var mainView = new MainView(screeningRepository, cinemaRepository);
 
-screeningService.PrintAll(cinemaId);
+mainView.Display();
