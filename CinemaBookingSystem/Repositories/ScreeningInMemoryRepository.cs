@@ -7,8 +7,6 @@ namespace CinemaBookingSystem.Repositories
     {
         private readonly List<Screening> _screenings = new List<Screening>();
 
-        public ScreeningInMemoryRepository() { }
-
         public IEnumerable<Screening> GetAll(Guid cinemaId)
         {
             return _screenings.Where(s => s.CinemaRoom.CinemaId == cinemaId);

@@ -5,7 +5,7 @@ namespace CinemaBookingSystem.Repositories.Interfaces
     internal interface IOrderRepository
     {
         void Add(Order order);
-        void GetById(Guid id);
+        Order GetById(Guid id);
         void Update(Guid id, Order order);
     }
 }
