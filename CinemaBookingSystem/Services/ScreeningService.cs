@@ -14,7 +14,7 @@ namespace CinemaBookingSystem.Services
         public void PrintAll(Guid cinemaId)
         {
             var screenings = _screeningRepository.GetAll(cinemaId);
-            var dateFormat = "dd.MM HH:MM";
+            var dateFormat = "dd.MM HH:mm";
 
             foreach (var screening in screenings)
             {
