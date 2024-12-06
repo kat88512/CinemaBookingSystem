@@ -9,8 +9,8 @@ namespace CinemaBookingSystem.Views
         private readonly ICinemaRepository _cinemaRepository;
         private readonly string _printDateFormat = "dd.MM HH:mm";
 
-        private Cinema _cinema;
-        private List<Screening> _screenings;
+        private Cinema _cinema = null!;
+        private List<Screening> _screenings = [];
 
         public MainView(
             IScreeningRepository screeningRepository,
@@ -23,10 +23,14 @@ namespace CinemaBookingSystem.Views
 
         public void Display()
         {
+            Console.Clear();
+
             FetchData();
 
             PrintScreenings();
-            GetScreeningChoice();
+            var screening = GetScreeningChoice();
+
+            new SeatView(screening.Id, _screeningRepository).Display();
         }
 
         private void FetchData()
