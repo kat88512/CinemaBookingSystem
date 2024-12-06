@@ -30,7 +30,7 @@ namespace CinemaBookingSystem.Models
             {
                 for (int j = 0; j < seatsPerRowCount; j++)
                 {
-                    RoomSeats.Add(new CinemaRoomSeat(row: i, number: j));
+                    seats.Add(new CinemaRoomSeat(row: i, number: j));
                 }
             }
 
