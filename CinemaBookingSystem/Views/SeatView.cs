@@ -27,6 +27,7 @@ namespace CinemaBookingSystem.Views
             FetchData();
 
             PrintSeats();
+            PrintKey();
         }
 
         private void FetchData()
@@ -59,11 +60,11 @@ namespace CinemaBookingSystem.Views
                 {
                     if (seat.IsTaken)
                     {
-                        Console.BackgroundColor = ConsoleColor.Red;
+                        Console.BackgroundColor = ConsoleColor.DarkRed;
                     }
                     else
                     {
-                        Console.BackgroundColor = ConsoleColor.Green;
+                        Console.BackgroundColor = ConsoleColor.DarkGreen;
                     }
 
                     Console.Write(seat + " ");
@@ -71,6 +72,20 @@ namespace CinemaBookingSystem.Views
 
                 Console.WriteLine();
             }
+
+            Console.BackgroundColor = ConsoleColor.Black;
+        }
+
+        private void PrintKey()
+        {
+            Console.WriteLine("\n");
+            Console.WriteLine("Seat availability key:\n");
+
+            Console.BackgroundColor = ConsoleColor.DarkGreen;
+            Console.WriteLine("Seat available");
+
+            Console.BackgroundColor = ConsoleColor.DarkRed;
+            Console.WriteLine("Seat taken");
 
             Console.BackgroundColor = ConsoleColor.Black;
         }
