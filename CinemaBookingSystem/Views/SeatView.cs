@@ -28,6 +28,8 @@ namespace CinemaBookingSystem.Views
 
             PrintSeats();
             PrintKey();
+
+            ShowMenu();
         }
 
         private void FetchData()
@@ -89,5 +91,7 @@ namespace CinemaBookingSystem.Views
 
             Console.BackgroundColor = ConsoleColor.Black;
         }
+
+        private void ShowMenu() { }
     }
 }

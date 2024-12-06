@@ -96,7 +96,8 @@ namespace CinemaBookingSystem.Seeders
                 .CinemaRoom.RoomSeats.Select(rs => new ScreeningSeat(
                     screening.Id,
                     rs.Row,
-                    rs.Number
+                    rs.Number,
+                    isTaken: _randomizer.Next(2) == 0
                 ))
                 .ToList();
 
