@@ -1,4 +1,4 @@
-﻿namespace Cinema.Backend.Models
+﻿namespace CinemaBookingSystem.Models
 {
     public class Cinema
     {

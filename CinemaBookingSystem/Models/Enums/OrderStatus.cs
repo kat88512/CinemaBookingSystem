@@ -1,4 +1,4 @@
-﻿namespace Cinema.Backend.Models.Enums
+﻿namespace CinemaBookingSystem.Models.Enums
 {
     public enum OrderStatus
     {

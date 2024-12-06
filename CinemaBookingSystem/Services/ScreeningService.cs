@@ -1,6 +1,6 @@
-﻿using CinemaBookingSystem.Backend.Repositories.Interfaces;
+﻿using CinemaBookingSystem.Repositories.Interfaces;
 
-namespace CinemaBookingSystem.Backend.Services
+namespace CinemaBookingSystem.Services
 {
     internal class ScreeningService
     {

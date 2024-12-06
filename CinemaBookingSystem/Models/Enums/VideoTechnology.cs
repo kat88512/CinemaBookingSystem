@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Cinema.Backend.Models.Enums
+namespace CinemaBookingSystem.Models.Enums
 {
     public enum VideoTechnology
     {

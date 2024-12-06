@@ -1,4 +1,4 @@
-﻿namespace CinemaBookingSystem.Backend.Models.Consts
+﻿namespace CinemaBookingSystem.Models.Consts
 {
     internal static class PriceList
     {

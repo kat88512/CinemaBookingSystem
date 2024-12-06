@@ -1,7 +1,7 @@
-﻿using Cinema.Backend.Models;
-using CinemaBookingSystem.Backend.Repositories.Interfaces;
+﻿using CinemaBookingSystem.Models;
+using CinemaBookingSystem.Repositories.Interfaces;
 
-namespace CinemaBookingSystem.Backend.Repositories
+namespace CinemaBookingSystem.Repositories
 {
     internal class ScreeningInMemoryRepository : IScreeningRepository
     {

@@ -1,6 +1,6 @@
-﻿using Cinema.Backend.Models;
+﻿using CinemaBookingSystem.Models;
 
-namespace CinemaBookingSystem.Backend.Repositories.Interfaces
+namespace CinemaBookingSystem.Repositories.Interfaces
 {
     internal interface IScreeningRepository
     {

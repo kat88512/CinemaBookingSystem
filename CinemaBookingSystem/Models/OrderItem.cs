@@ -1,6 +1,4 @@
-﻿using Cinema.Backend.Models;
-
-namespace CinemaBookingSystem.Backend.Models
+﻿namespace CinemaBookingSystem.Models
 {
     internal class OrderItem
     {

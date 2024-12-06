@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace Cinema.Backend.Utilities
+namespace CinemaBookingSystem.Utilities
 {
     public abstract class Enumeration : IComparable
     {

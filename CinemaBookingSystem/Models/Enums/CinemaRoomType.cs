@@ -1,6 +1,6 @@
-﻿using Cinema.Backend.Utilities;
+﻿using CinemaBookingSystem.Utilities;
 
-namespace Cinema.Backend.Models.Enums
+namespace CinemaBookingSystem.Models.Enums
 {
     public class CinemaRoomType : Enumeration
     {
