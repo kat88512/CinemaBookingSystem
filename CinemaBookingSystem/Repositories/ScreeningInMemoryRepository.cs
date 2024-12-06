@@ -5,18 +5,18 @@ namespace CinemaBookingSystem.Repositories
 {
     internal class ScreeningInMemoryRepository : IScreeningRepository
     {
-        private readonly ICollection<Screening> _screenings = new List<Screening>();
+        private readonly List<Screening> _screenings = new List<Screening>();
 
         public ScreeningInMemoryRepository() { }
 
         public IEnumerable<Screening> GetAll(Guid cinemaId)
         {
-            throw new NotImplementedException();
+            return _screenings.Where(s => s.CinemaRoom.CinemaId == cinemaId);
         }
 
-        public Screening GetById(Guid id)
+        public Screening? GetById(Guid id)
         {
-            throw new NotImplementedException();
+            return _screenings.FirstOrDefault(s => s.Id == id);
         }
     }
 }
