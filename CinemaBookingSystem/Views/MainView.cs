@@ -1,4 +1,5 @@
 ﻿using CinemaBookingSystem.Models;
+using CinemaBookingSystem.Models.Consts;
 using CinemaBookingSystem.Repositories;
 
 namespace CinemaBookingSystem.Views
@@ -9,8 +10,6 @@ namespace CinemaBookingSystem.Views
             ScreeningInMemoryRepository.Instance;
         private readonly CinemaInMemoryRepository _cinemaRepository =
             CinemaInMemoryRepository.Instance;
-
-        private readonly string _printDateFormat = "dd.MM HH:mm";
 
         private Cinema _cinema = null!;
         private List<Screening> _screenings = [];
@@ -45,7 +44,7 @@ namespace CinemaBookingSystem.Views
             {
                 var number = i;
                 var movieName = _screenings[i].Movie.Name;
-                var formattedStartDate = _screenings[i].TimeTo.ToString(_printDateFormat);
+                var formattedStartDate = _screenings[i].TimeFrom.ToString(Formats.DateTimeFormat);
 
                 Console.WriteLine($"{number}. {movieName} on {formattedStartDate}");
             }

@@ -1,4 +1,5 @@
 ﻿using CinemaBookingSystem.Models;
+using CinemaBookingSystem.Models.Consts;
 using CinemaBookingSystem.Repositories;
 
 namespace CinemaBookingSystem.Views
@@ -45,6 +46,12 @@ namespace CinemaBookingSystem.Views
 
         private void PrintSeats()
         {
+            var movieName = _screening.Movie.Name;
+            var formattedStartDate = _screening.TimeFrom.ToString(Formats.DateTimeFormat);
+
+            Console.WriteLine(
+                $"Available seats for screening '{movieName}' on {formattedStartDate}: \n"
+            );
             var rowCount = _screening.CinemaRoom.RoomType.RowsCount;
 
             for (int i = 0; i < rowCount; i++)
