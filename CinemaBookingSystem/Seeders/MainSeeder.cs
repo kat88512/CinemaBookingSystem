@@ -67,7 +67,14 @@ namespace CinemaBookingSystem.Seeders
                 var cinemaRoomIndex = _randomizer.Next(SeedData.CinemaRooms.Count);
                 var cinemaRoom = SeedData.CinemaRooms[cinemaRoomIndex];
 
-                var startDate = DateTime.Now.AddHours(_randomizer.Next(1, 80));
+                var daysToAdd = _randomizer.Next(1, 5);
+                var hoursToAdd = _randomizer.Next(0, 24);
+                var minutesToAdd = _randomizer.Next(0, 60);
+
+                var startDate = DateTime
+                    .Now.AddDays(daysToAdd)
+                    .AddHours(hoursToAdd)
+                    .AddMinutes(minutesToAdd);
 
                 var screeningLength = _randomizer.Next(60, 180);
                 var endDate = startDate.AddMinutes(screeningLength);
