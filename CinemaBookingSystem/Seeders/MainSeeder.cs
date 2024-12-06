@@ -7,22 +7,19 @@ namespace CinemaBookingSystem.Seeders
 {
     internal class MainSeeder
     {
-        public readonly IMovieRepository _movieRepository;
-        public readonly ICinemaRepository _cinemaRepository;
-        public readonly ICinemaRoomRepository _cinemaRoomRepository;
-        public readonly IScreeningRepository _screeningRepository;
-        public readonly IScreeningSeatRepository _screeningSeatRepository;
+        public readonly IMovieRepository _movieRepository = MovieInMemoryRepository.Instance;
+        public readonly ICinemaRepository _cinemaRepository = CinemaInMemoryRepository.Instance;
+        public readonly ICinemaRoomRepository _cinemaRoomRepository =
+            CinemaRoomInMemoryRepository.Instance;
+
+        public readonly IScreeningRepository _screeningRepository =
+            ScreeningInMemoryRepository.Instance;
+        public readonly IScreeningSeatRepository _screeningSeatRepository =
+            ScreeningSeatInMemoryRepository.Instance;
 
         private readonly Random _randomizer = new();
 
-        public MainSeeder()
-        {
-            _movieRepository = MovieInMemoryRepository.Instance;
-            _cinemaRepository = CinemaInMemoryRepository.Instance;
-            _cinemaRoomRepository = CinemaRoomInMemoryRepository.Instance;
-            _screeningRepository = ScreeningInMemoryRepository.Instance;
-            _screeningSeatRepository = ScreeningSeatInMemoryRepository.Instance;
-        }
+        public MainSeeder() { }
 
         public void Seed()
         {

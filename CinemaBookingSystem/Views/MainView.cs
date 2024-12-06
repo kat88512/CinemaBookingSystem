@@ -56,6 +56,7 @@ namespace CinemaBookingSystem.Views
             while (true)
             {
                 Console.Write($"\nPlease choose a screening [0-{_screenings.Count - 1}]: ");
+
                 var input = Console.ReadLine();
                 var parseResult = int.TryParse(input, out var number);
 
