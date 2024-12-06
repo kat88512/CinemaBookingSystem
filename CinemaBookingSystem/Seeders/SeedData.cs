@@ -7,7 +7,8 @@ namespace CinemaBookingSystem.Seeders
     {
         private const string CinemaName = "Megakino";
         private const string CinemaCity = "Kalisz";
-        public static readonly Cinema Cinema = new Cinema(CinemaName, CinemaCity);
+
+        public static readonly Cinema Cinema = new(CinemaName, CinemaCity);
 
         public static readonly List<CinemaRoom> CinemaRooms =
         [

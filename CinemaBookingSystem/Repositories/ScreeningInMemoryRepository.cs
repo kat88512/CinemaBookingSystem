@@ -5,7 +5,7 @@ namespace CinemaBookingSystem.Repositories
 {
     internal class ScreeningInMemoryRepository : IScreeningRepository
     {
-        private readonly List<Screening> _screenings = new List<Screening>();
+        private readonly List<Screening> _screenings = [];
 
         public IEnumerable<Screening> GetAll(Guid cinemaId)
         {

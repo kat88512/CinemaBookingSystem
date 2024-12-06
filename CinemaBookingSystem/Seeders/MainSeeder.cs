@@ -11,7 +11,7 @@ namespace CinemaBookingSystem.Seeders
         public readonly ICinemaRoomRepository _cinemaRoomRepository;
         public readonly IScreeningRepository _screeningRepository;
 
-        private readonly Random _randomizer = new Random();
+        private readonly Random _randomizer = new();
 
         public MainSeeder(
             IMovieRepository movieRepository,

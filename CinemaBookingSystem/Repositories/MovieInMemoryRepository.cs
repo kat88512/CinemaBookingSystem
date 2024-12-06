@@ -5,7 +5,7 @@ namespace CinemaBookingSystem.Repositories
 {
     internal class MovieInMemoryRepository : IMovieRepository
     {
-        private readonly List<Movie> _movies = new List<Movie>();
+        private readonly List<Movie> _movies = [];
 
         public void Add(Movie movie)
         {

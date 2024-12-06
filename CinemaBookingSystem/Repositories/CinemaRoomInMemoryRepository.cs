@@ -5,7 +5,7 @@ namespace CinemaBookingSystem.Repositories
 {
     internal class CinemaRoomInMemoryRepository : ICinemaRoomRepository
     {
-        private readonly List<CinemaRoom> _cinemaRooms = new List<CinemaRoom>();
+        private readonly List<CinemaRoom> _cinemaRooms = [];
 
         public void Add(CinemaRoom cinemaRoom)
         {
