@@ -7,8 +7,7 @@ namespace CinemaBookingSystem.Repositories
     {
         public static CinemaRoomInMemoryRepository Instance => _instance;
 
-        private static readonly CinemaRoomInMemoryRepository _instance =
-            new CinemaRoomInMemoryRepository();
+        private static readonly CinemaRoomInMemoryRepository _instance = new();
 
         private readonly List<CinemaRoom> _cinemaRooms = [];
 

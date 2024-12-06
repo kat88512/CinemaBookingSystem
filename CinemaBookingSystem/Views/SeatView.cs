@@ -1,14 +1,16 @@
 ﻿using CinemaBookingSystem.Models;
 using CinemaBookingSystem.Repositories;
-using CinemaBookingSystem.Repositories.Interfaces;
 
 namespace CinemaBookingSystem.Views
 {
     internal class SeatView
     {
         private readonly Guid _requestedScreeningId;
-        private readonly IScreeningRepository _screeningRepository;
-        private readonly IScreeningSeatRepository _screeningSeatRepository;
+
+        private readonly ScreeningInMemoryRepository _screeningRepository =
+            ScreeningInMemoryRepository.Instance;
+        private readonly ScreeningSeatInMemoryRepository _screeningSeatRepository =
+            ScreeningSeatInMemoryRepository.Instance;
 
         private Screening _screening = null!;
         private IEnumerable<ScreeningSeat> _screeningSeats = [];
@@ -16,8 +18,6 @@ namespace CinemaBookingSystem.Views
         public SeatView(Guid screeningId)
         {
             _requestedScreeningId = screeningId;
-            _screeningRepository = ScreeningInMemoryRepository.Instance;
-            _screeningSeatRepository = ScreeningSeatInMemoryRepository.Instance;
         }
 
         public void Display()

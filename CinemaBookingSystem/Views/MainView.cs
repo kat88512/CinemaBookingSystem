@@ -1,24 +1,21 @@
 ﻿using CinemaBookingSystem.Models;
 using CinemaBookingSystem.Repositories;
-using CinemaBookingSystem.Repositories.Interfaces;
 
 namespace CinemaBookingSystem.Views
 {
     internal class MainView
     {
-        private readonly IScreeningRepository _screeningRepository;
-        private readonly ICinemaRepository _cinemaRepository;
+        private readonly ScreeningInMemoryRepository _screeningRepository =
+            ScreeningInMemoryRepository.Instance;
+        private readonly CinemaInMemoryRepository _cinemaRepository =
+            CinemaInMemoryRepository.Instance;
 
         private readonly string _printDateFormat = "dd.MM HH:mm";
 
         private Cinema _cinema = null!;
         private List<Screening> _screenings = [];
 
-        public MainView()
-        {
-            _screeningRepository = ScreeningInMemoryRepository.Instance;
-            _cinemaRepository = CinemaInMemoryRepository.Instance;
-        }
+        public MainView() { }
 
         public void Display()
         {
