@@ -28,6 +28,13 @@ namespace CinemaBookingSystem.Repositories
             return _screeningSeats.Where(ss => ss.ScreeningId == screeningId);
         }
 
+        public IOrderedEnumerable<ScreeningSeat> GetRow(Guid screeningId, int rowNumber)
+        {
+            return _screeningSeats
+                .Where(ss => ss.ScreeningId == screeningId && ss.Row == rowNumber)
+                .OrderBy(ss => ss.Number);
+        }
+
         public ScreeningSeat? GetById(Guid id)
         {
             return _screeningSeats.FirstOrDefault(ss => ss.Id == id);

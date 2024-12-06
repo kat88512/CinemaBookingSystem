@@ -45,11 +45,18 @@ namespace CinemaBookingSystem.Views
 
         private void PrintSeats()
         {
-            var seats = _screeningSeats.OrderBy(ss => ss.Row).ThenBy(ss => ss.Number);
+            var rowCount = _screening.CinemaRoom.RoomType.RowsCount;
 
-            foreach (var s in seats)
+            for (int i = 0; i < rowCount; i++)
             {
-                Console.Write(s + " ");
+                var row = _screeningSeatRepository.GetRow(_screening.Id, i);
+
+                foreach (var seat in row)
+                {
+                    Console.Write(seat + " ");
+                }
+
+                Console.WriteLine();
             }
         }
     }
