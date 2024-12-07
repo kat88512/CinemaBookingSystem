@@ -1,19 +1,17 @@
-﻿using CinemaBookingSystem.Models;
-using CinemaBookingSystem.Models.Consts;
-using CinemaBookingSystem.Repositories;
+﻿using CinemaBookingSystem.Consts;
+using CinemaBookingSystem.Extensions;
+using Domain.Models.CinemaModels;
+using Domain.Models.ScreeningModels;
+using Services.Requests.CinemaRequests;
+using Services.Requests.ScreeningRequests;
 
 namespace CinemaBookingSystem.Views
 {
-    internal class MainView
+    internal class MainView : IView
     {
         public static MainView Instance => _instance;
 
         private static readonly MainView _instance = new MainView();
-
-        private readonly ScreeningInMemoryRepository _screeningRepository =
-            ScreeningInMemoryRepository.Instance;
-        private readonly CinemaInMemoryRepository _cinemaRepository =
-            CinemaInMemoryRepository.Instance;
 
         private Cinema _cinema = null!;
         private List<Screening> _screenings = [];
@@ -34,8 +32,8 @@ namespace CinemaBookingSystem.Views
 
         private void FetchData()
         {
-            _cinema = _cinemaRepository.GetFirst()!;
-            _screenings = _screeningRepository.GetAll(_cinema.Id).ToList();
+            _cinema = new CinemaDetails().Execute().Value!;
+            _screenings = new CinemaScreenings(_cinema.Id).Execute().Value!.ToList();
         }
 
         private void PrintScreenings()
@@ -44,13 +42,19 @@ namespace CinemaBookingSystem.Views
 
             Console.WriteLine($"Available screenings: \n");
 
-            for (int i = 0; i < _screenings.Count; i++)
+            for (int i = 0; i < _screenings.Count(); i++)
             {
-                var number = i;
-                var movieName = _screenings[i].Movie.Name;
-                var formattedStartDate = _screenings[i].TimeFrom.ToString(Formats.DateTimeFormat);
+                var s = _screenings[i];
+                var movieName = s.Movie.Name;
+                var formattedStartDate = s.TimeFrom.ToString(Formats.DateTimeFormat);
+                var cinemaRoomType = s.CinemaRoom.RoomType;
 
-                Console.WriteLine($"{number}. {movieName} on {formattedStartDate}");
+                Console.WriteLine($"{i}. {movieName} on {formattedStartDate}");
+
+                ConsoleExtensions.WriteLineInColor(
+                    $"Cinema room type: {cinemaRoomType.Name}",
+                    foregroundColor: ConsoleColor.Cyan
+                );
             }
         }
 
