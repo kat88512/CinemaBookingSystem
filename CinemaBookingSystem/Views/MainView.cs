@@ -4,7 +4,7 @@ using CinemaBookingSystem.Repositories;
 
 namespace CinemaBookingSystem.Views
 {
-    internal class MainView
+    internal class MainView : IView
     {
         public static MainView Instance => _instance;
 

@@ -5,7 +5,7 @@ using CinemaBookingSystem.Requests.Commands;
 
 namespace CinemaBookingSystem.Views
 {
-    internal class SeatView
+    internal class SeatView : IView
     {
         private readonly Guid _requestedScreeningId;
 
