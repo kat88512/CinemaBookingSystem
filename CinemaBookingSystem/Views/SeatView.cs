@@ -1,6 +1,7 @@
 ﻿using CinemaBookingSystem.Models;
 using CinemaBookingSystem.Models.Consts;
 using CinemaBookingSystem.Repositories;
+using CinemaBookingSystem.Requests.Commands;
 
 namespace CinemaBookingSystem.Views
 {
@@ -13,8 +14,11 @@ namespace CinemaBookingSystem.Views
         private readonly ScreeningSeatInMemoryRepository _screeningSeatRepository =
             ScreeningSeatInMemoryRepository.Instance;
 
+        private Order _order = null!;
         private Screening _screening = null!;
         private IEnumerable<ScreeningSeat> _screeningSeats;
+
+        private bool _userIsOrdering = true;
 
         public SeatView(Guid screeningId)
         {
@@ -24,13 +28,18 @@ namespace CinemaBookingSystem.Views
         public void Display()
         {
             Console.Clear();
+            CreateOrder();
 
-            FetchData();
+            while (_userIsOrdering)
+            {
+                FetchData();
 
-            PrintSeats();
-            PrintKey();
+                PrintSeats();
+                PrintKey();
 
-            ChooseSeats();
+                AddSeatToOrder();
+                ShowContinueQuestion();
+            }
         }
 
         private void FetchData()
@@ -44,6 +53,13 @@ namespace CinemaBookingSystem.Views
 
             _screening = screening;
             _screeningSeats = _screeningSeatRepository.GetAll(_screening.Id);
+        }
+
+        private void CreateOrder()
+        {
+            var requestResult = new AddOrder().Execute();
+
+            _order = requestResult.Value!;
         }
 
         private void PrintSeats()
@@ -74,10 +90,9 @@ namespace CinemaBookingSystem.Views
                     Console.Write(seat + " ");
                 }
 
+                Console.BackgroundColor = ConsoleColor.Black;
                 Console.WriteLine();
             }
-
-            Console.BackgroundColor = ConsoleColor.Black;
         }
 
         private void PrintKey()
@@ -85,35 +100,77 @@ namespace CinemaBookingSystem.Views
             Console.WriteLine("Seat availability key:\n");
 
             Console.BackgroundColor = ConsoleColor.DarkGreen;
-            Console.WriteLine("Seat available");
+            Console.Write("Seat available");
+            Console.WriteLine();
+            Console.BackgroundColor = ConsoleColor.Black;
 
             Console.BackgroundColor = ConsoleColor.DarkRed;
-            Console.WriteLine("Seat taken\n");
-
+            Console.Write("Seat taken");
+            Console.WriteLine();
             Console.BackgroundColor = ConsoleColor.Black;
         }
 
-        private void ChooseSeats()
+        private void AddSeatToOrder()
         {
             while (true)
             {
-                Console.WriteLine("Choose available seat: ");
+                Console.Write("Choose available seat: ");
                 var input = Console.ReadLine();
                 var parseSuccess = int.TryParse(input, out var number);
 
                 var rowNumber = number / 10;
                 var seatNumber = number - (rowNumber * 10);
 
-                if (
-                    !parseSuccess
-                    || !_screeningSeats.Any(ss => ss.Row == rowNumber && ss.Number == seatNumber)
-                )
+                if (!parseSuccess)
                 {
-                    Console.WriteLine("Incorrect number!");
+                    Console.WriteLine("Incorrect input!");
                     continue;
                 }
 
-                var seatId = _screeningSeats.FirstOrDefault();
+                var seat = _screeningSeats.FirstOrDefault(ss =>
+                    ss.Row == rowNumber && ss.Number == seatNumber
+                );
+
+                if (seat is null)
+                {
+                    Console.WriteLine("Incorrect number!\n");
+                    continue;
+                }
+
+                var request = new AddScreeningSeatToOrder(seat.Id, _order.Id);
+                var result = request.Execute();
+
+                if (!result.IsSuccess)
+                {
+                    Console.WriteLine($"{result.ErrorMessage}\n");
+                    continue;
+                }
+
+                Console.WriteLine($"Added seat {number} to order!\n");
+                break;
+            }
+        }
+
+        private void ShowContinueQuestion()
+        {
+            while (true)
+            {
+                Console.Write("Do you want to add more seats? [Y/N]: ");
+
+                var input = Console.ReadLine();
+
+                if (input != "Y" && input != "N")
+                {
+                    Console.WriteLine("Incorrect key!");
+                    continue;
+                }
+
+                if (input == "N")
+                {
+                    _userIsOrdering = false;
+                }
+
+                break;
             }
         }
     }

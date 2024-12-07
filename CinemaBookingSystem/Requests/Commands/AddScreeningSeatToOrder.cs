@@ -20,27 +20,35 @@ namespace CinemaBookingSystem.Requests.Commands
             OrderId = orderId;
         }
 
-        public CommandResult Execute()
+        public CommandResult<Order> Execute()
         {
             var order = _orderRepository.GetById(OrderId);
 
             if (order is null)
             {
-                return new CommandResult { Success = false, ErrorMessage = "Order does not exist" };
+                return new CommandResult<Order>
+                {
+                    IsSuccess = false,
+                    ErrorMessage = "Order does not exist"
+                };
             }
 
             var seat = _screeningSeatRepository.GetById(ScreeningSeatId);
 
             if (seat is null)
             {
-                return new CommandResult { Success = false, ErrorMessage = "Seat does not exist" };
+                return new CommandResult<Order>
+                {
+                    IsSuccess = false,
+                    ErrorMessage = "Seat does not exist"
+                };
             }
 
             if (seat.IsTaken)
             {
-                return new CommandResult
+                return new CommandResult<Order>
                 {
-                    Success = false,
+                    IsSuccess = false,
                     ErrorMessage = "Seat is already taken"
                 };
             }
@@ -51,7 +59,7 @@ namespace CinemaBookingSystem.Requests.Commands
             order.AddItem(new OrderItem(seat, PriceList.SeatPrice));
             _orderRepository.Update(order);
 
-            return new CommandResult { Success = true };
+            return new CommandResult<Order> { IsSuccess = true, Value = order };
         }
     }
 }
