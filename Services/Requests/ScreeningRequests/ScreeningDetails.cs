@@ -5,18 +5,18 @@ namespace Services.Requests.ScreeningRequests
 {
     public class ScreeningDetails : IRequest<Screening>
     {
-        private readonly Guid _screeningId;
+        public Guid ScreeningId { get; set; }
 
         private readonly IScreeningRepository _screenings = ScreeningInMemoryRepository.Instance;
 
         public ScreeningDetails(Guid screeningId)
         {
-            _screeningId = screeningId;
+            ScreeningId = screeningId;
         }
 
         public RequestResult<Screening> Execute()
         {
-            var screening = _screenings.GetById(_screeningId);
+            var screening = _screenings.GetById(ScreeningId);
 
             if (screening is null)
             {
