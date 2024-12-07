@@ -7,7 +7,7 @@ using Services.Requests.ScreeningRequests;
 
 namespace CinemaBookingSystem.Views
 {
-    internal class SeatView : IView
+    internal class SeatPlanView : IView
     {
         private readonly Guid _requestedScreeningId;
 
@@ -17,7 +17,7 @@ namespace CinemaBookingSystem.Views
 
         private bool _userIsOrdering = true;
 
-        public SeatView(Guid screeningId)
+        public SeatPlanView(Guid screeningId)
         {
             _requestedScreeningId = screeningId;
         }
@@ -33,6 +33,7 @@ namespace CinemaBookingSystem.Views
 
                 PrintSeats();
                 PrintKey();
+                PrintOrderSeats();
 
                 AddSeatToOrder();
                 ShowContinueQuestion();
@@ -105,7 +106,29 @@ namespace CinemaBookingSystem.Views
             Console.WriteLine();
 
             ConsoleExtensions.WriteInColor("Seat taken", backgroundColor: ConsoleColor.DarkRed);
-            Console.WriteLine();
+            Console.WriteLine("\n");
+        }
+
+        private void PrintOrderSeats()
+        {
+            Console.Write("Your seats: ");
+
+            if (_order.Items.Count() == 0)
+            {
+                Console.WriteLine("none!\n");
+                return;
+            }
+
+            foreach (var item in _order.Items)
+            {
+                ConsoleExtensions.WriteInColor(
+                    $"{item.ScreeningSeat} ",
+                    backgroundColor: ConsoleColor.DarkBlue
+                );
+                Console.Write(" ");
+            }
+
+            Console.WriteLine("\n");
         }
 
         private void AddSeatToOrder()

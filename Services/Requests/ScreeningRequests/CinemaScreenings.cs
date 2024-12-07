@@ -5,18 +5,18 @@ namespace Services.Requests.ScreeningRequests
 {
     public class CinemaScreenings : IRequest<IEnumerable<Screening>>
     {
-        private readonly Guid _cinemaId;
+        public Guid CinemaId { get; set; }
 
         private readonly IScreeningRepository _screenings = ScreeningInMemoryRepository.Instance;
 
         public CinemaScreenings(Guid cinemaId)
         {
-            _cinemaId = cinemaId;
+            CinemaId = cinemaId;
         }
 
         public RequestResult<IEnumerable<Screening>> Execute()
         {
-            var screenings = _screenings.GetAll(_cinemaId);
+            var screenings = _screenings.GetAll(CinemaId);
 
             return new RequestResult<IEnumerable<Screening>>
             {

@@ -9,4 +9,4 @@ seeder.Seed();
 Console.ForegroundColor = Colors.DefaultForegroundColor;
 Console.BackgroundColor = Colors.DefaultBackgroundColor;
 
-MainView.Instance.Display();
+ScreeningsView.Instance.Display();
