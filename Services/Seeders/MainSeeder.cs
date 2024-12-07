@@ -74,7 +74,7 @@ namespace Services.Seeders
                 var screeningLength = _randomizer.Next(60, 180);
                 var endDate = startDate.AddMinutes(screeningLength);
 
-                var videoTechnology = (VideoTechnology)_randomizer.Next(0, 1);
+                var videoTechnology = (VideoTechnology)_randomizer.Next(0, 2);
 
                 var screening = new Screening(
                     movie,
