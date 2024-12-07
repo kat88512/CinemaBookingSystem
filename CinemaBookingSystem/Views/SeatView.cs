@@ -101,13 +101,13 @@ namespace CinemaBookingSystem.Views
 
             Console.BackgroundColor = ConsoleColor.DarkGreen;
             Console.Write("Seat available");
-            Console.WriteLine();
             Console.BackgroundColor = ConsoleColor.Black;
+            Console.WriteLine();
 
             Console.BackgroundColor = ConsoleColor.DarkRed;
             Console.Write("Seat taken");
-            Console.WriteLine();
             Console.BackgroundColor = ConsoleColor.Black;
+            Console.WriteLine();
         }
 
         private void AddSeatToOrder()
