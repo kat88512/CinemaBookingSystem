@@ -7,6 +7,8 @@
         public IEnumerable<OrderItem> Items => _items.ToList();
         public int ValueToPay { get; private set; } = 0;
 
+        public const int MaxOrderItemsCount = 10;
+
         private readonly ICollection<OrderItem> _items = [];
 
         public void AddItem(OrderItem item)

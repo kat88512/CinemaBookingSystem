@@ -1,7 +1,6 @@
 ﻿using DataAccess.Repositories.OrderRepositories;
 using DataAccess.Repositories.ScreeningRepositories;
 using Domain.Consts;
-using Domain.Models;
 using Domain.Models.OrderModels;
 
 namespace Services.Requests.OrderRequests
@@ -31,6 +30,19 @@ namespace Services.Requests.OrderRequests
                 {
                     IsSuccess = false,
                     ErrorMessage = "Order does not exist"
+                };
+            }
+
+            var itemsCount = order.Items.Count();
+            var maxItemsCount = Order.MaxOrderItemsCount;
+
+            if (itemsCount >= maxItemsCount)
+            {
+                return new RequestResult<Order>
+                {
+                    IsSuccess = false,
+                    ErrorMessage =
+                        $"Order has {itemsCount} seats reserved. Order cannot have more than {maxItemsCount} seats"
                 };
             }
 
