@@ -9,5 +9,6 @@ namespace CinemaBookingSystem.Repositories.Interfaces
         IEnumerable<ScreeningSeat> GetAll(Guid screeningId);
         ScreeningSeat? GetById(Guid id);
         void Update(ScreeningSeat screeningSeat);
+        int GetSeatsCount(Guid screeningId, bool? isTaken = null);
     }
 }

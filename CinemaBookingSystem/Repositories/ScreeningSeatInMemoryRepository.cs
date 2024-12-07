@@ -45,5 +45,19 @@ namespace CinemaBookingSystem.Repositories
             var item = _screeningSeats.FirstOrDefault(ss => ss.Id == screeningSeat.Id);
             item = screeningSeat;
         }
+
+        public int GetSeatsCount(Guid screeningId, bool? isTaken)
+        {
+            if (isTaken is null)
+            {
+                return _screeningSeats.Where(ss => ss.Id == screeningId).Count();
+            }
+            else
+            {
+                return _screeningSeats
+                    .Where(ss => ss.Id == screeningId && ss.IsTaken == isTaken)
+                    .Count();
+            }
+        }
     }
 }
