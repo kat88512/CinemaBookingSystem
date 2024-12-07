@@ -14,6 +14,8 @@ namespace CinemaBookingSystem.Views
             ScreeningInMemoryRepository.Instance;
         private readonly CinemaInMemoryRepository _cinemaRepository =
             CinemaInMemoryRepository.Instance;
+        private readonly ScreeningSeatInMemoryRepository _screeningSeatRepository =
+            ScreeningSeatInMemoryRepository.Instance;
 
         private Cinema _cinema = null!;
         private List<Screening> _screenings = [];
@@ -46,11 +48,15 @@ namespace CinemaBookingSystem.Views
 
             for (int i = 0; i < _screenings.Count; i++)
             {
-                var number = i;
-                var movieName = _screenings[i].Movie.Name;
-                var formattedStartDate = _screenings[i].TimeFrom.ToString(Formats.DateTimeFormat);
+                var s = _screenings[i];
+                var movieName = s.Movie.Name;
+                var formattedStartDate = s.TimeFrom.ToString(Formats.DateTimeFormat);
+                var cinemaRoomType = s.CinemaRoom.RoomType;
 
-                Console.WriteLine($"{number}. {movieName} on {formattedStartDate}");
+                Console.WriteLine($"{i}. {movieName} on {formattedStartDate}");
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine($"Cinema room type: {cinemaRoomType.Name}");
+                Console.ForegroundColor = ConsoleColor.White;
             }
         }
 
