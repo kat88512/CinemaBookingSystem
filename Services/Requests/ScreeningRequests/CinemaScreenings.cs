@@ -3,12 +3,13 @@ using Domain.Models.ScreeningModels;
 
 namespace Services.Requests.ScreeningRequests
 {
-    public class GetScreenings : IRequest<IEnumerable<Screening>>
+    public class CinemaScreenings : IRequest<IEnumerable<Screening>>
     {
-        private readonly IScreeningRepository _screenings = ScreeningInMemoryRepository.Instance;
         private readonly Guid _cinemaId;
 
-        public GetScreenings(Guid cinemaId)
+        private readonly IScreeningRepository _screenings = ScreeningInMemoryRepository.Instance;
+
+        public CinemaScreenings(Guid cinemaId)
         {
             _cinemaId = cinemaId;
         }

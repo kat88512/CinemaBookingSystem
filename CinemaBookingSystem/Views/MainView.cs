@@ -31,8 +31,8 @@ namespace CinemaBookingSystem.Views
 
         private void FetchData()
         {
-            _cinema = new GetCinema().Execute().Value!;
-            _screenings = new GetScreenings(_cinema.Id).Execute().Value!.ToList();
+            _cinema = new CinemaDetails().Execute().Value!;
+            _screenings = new CinemaScreenings(_cinema.Id).Execute().Value!.ToList();
         }
 
         private void PrintScreenings()

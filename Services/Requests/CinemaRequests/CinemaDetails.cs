@@ -3,7 +3,7 @@ using Domain.Models.CinemaModels;
 
 namespace Services.Requests.CinemaRequests
 {
-    public class GetCinema : IRequest<Cinema>
+    public class CinemaDetails : IRequest<Cinema>
     {
         private readonly ICinemaRepository _cinemas = CinemaInMemoryRepository.Instance;
 

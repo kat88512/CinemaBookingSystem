@@ -1,8 +1,8 @@
 ﻿using CinemaBookingSystem.Consts;
-using DataAccess.Repositories.ScreeningRepositories;
 using Domain.Models.OrderModels;
 using Domain.Models.ScreeningModels;
 using Services.Requests.OrderRequests;
+using Services.Requests.ScreeningRequests;
 
 namespace CinemaBookingSystem.Views
 {
@@ -10,14 +10,9 @@ namespace CinemaBookingSystem.Views
     {
         private readonly Guid _requestedScreeningId;
 
-        private readonly ScreeningInMemoryRepository _screeningRepository =
-            ScreeningInMemoryRepository.Instance;
-        private readonly ScreeningSeatInMemoryRepository _screeningSeatRepository =
-            ScreeningSeatInMemoryRepository.Instance;
-
         private Order _order = null!;
         private Screening _screening = null!;
-        private IEnumerable<ScreeningSeat> _screeningSeats;
+        private IEnumerable<ScreeningSeat> _screeningSeats = null!;
 
         private bool _userIsOrdering = true;
 
@@ -45,15 +40,9 @@ namespace CinemaBookingSystem.Views
 
         private void FetchData()
         {
-            var screening = _screeningRepository.GetById(_requestedScreeningId);
+            _screening = new ScreeningDetails(_requestedScreeningId).Execute().Value!;
 
-            if (screening is null)
-            {
-                throw new Exception("Screening was not found!");
-            }
-
-            _screening = screening;
-            _screeningSeats = _screeningSeatRepository.GetAll(_screening.Id);
+            _screeningSeats = new ScreeningSeats(_screening.Id).Execute().Value!;
         }
 
         private void CreateOrder()
@@ -71,29 +60,34 @@ namespace CinemaBookingSystem.Views
             Console.WriteLine(
                 $"Available seats for screening '{movieName}' on {formattedStartDate}: \n"
             );
-            var rowCount = _screening.CinemaRoom.RoomType.RowsCount;
 
-            for (int i = 0; i < rowCount; i++)
+            var orderedSeats = _screeningSeats.OrderBy(s => s.Row).ThenBy(s => s.Number);
+            var rowNumber = orderedSeats.First().Row;
+
+            foreach (var seat in orderedSeats)
             {
-                var row = _screeningSeatRepository.GetRow(_screening.Id, i);
-
-                foreach (var seat in row)
+                var currentRowNumber = seat.Row;
+                if (rowNumber != currentRowNumber)
                 {
-                    if (seat.IsTaken)
-                    {
-                        Console.BackgroundColor = ConsoleColor.DarkRed;
-                    }
-                    else
-                    {
-                        Console.BackgroundColor = ConsoleColor.DarkGreen;
-                    }
-
-                    Console.Write(seat + " ");
+                    Console.BackgroundColor = ConsoleColor.Black;
+                    Console.WriteLine();
+                    rowNumber++;
                 }
 
-                Console.BackgroundColor = ConsoleColor.Black;
-                Console.WriteLine();
+                if (seat.IsTaken)
+                {
+                    Console.BackgroundColor = ConsoleColor.DarkRed;
+                }
+                else
+                {
+                    Console.BackgroundColor = ConsoleColor.DarkGreen;
+                }
+
+                Console.Write(seat + " ");
             }
+
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.WriteLine("\n");
         }
 
         private void PrintKey()
