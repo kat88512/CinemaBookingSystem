@@ -1,4 +1,5 @@
 ﻿using CinemaBookingSystem.Consts;
+using CinemaBookingSystem.Extensions;
 using Domain.Models.OrderModels;
 using Domain.Models.ScreeningModels;
 using Services.Requests.OrderRequests;
@@ -69,24 +70,26 @@ namespace CinemaBookingSystem.Views
                 var currentRowNumber = seat.Row;
                 if (rowNumber != currentRowNumber)
                 {
-                    Console.BackgroundColor = ConsoleColor.Black;
                     Console.WriteLine();
                     rowNumber++;
                 }
 
                 if (seat.IsTaken)
                 {
-                    Console.BackgroundColor = ConsoleColor.DarkRed;
+                    ConsoleExtensions.WriteInColor(
+                        seat + " ",
+                        backgroundColor: ConsoleColor.DarkRed
+                    );
                 }
                 else
                 {
-                    Console.BackgroundColor = ConsoleColor.DarkGreen;
+                    ConsoleExtensions.WriteInColor(
+                        seat + " ",
+                        backgroundColor: ConsoleColor.DarkGreen
+                    );
                 }
-
-                Console.Write(seat + " ");
             }
 
-            Console.BackgroundColor = ConsoleColor.Black;
             Console.WriteLine("\n");
         }
 
@@ -94,14 +97,14 @@ namespace CinemaBookingSystem.Views
         {
             Console.WriteLine("Seat availability key:\n");
 
-            Console.BackgroundColor = ConsoleColor.DarkGreen;
-            Console.Write("Seat available");
-            Console.BackgroundColor = ConsoleColor.Black;
+            ConsoleExtensions.WriteInColor(
+                "Seat available",
+                backgroundColor: ConsoleColor.DarkGreen
+            );
+
             Console.WriteLine();
 
-            Console.BackgroundColor = ConsoleColor.DarkRed;
-            Console.Write("Seat taken");
-            Console.BackgroundColor = ConsoleColor.Black;
+            ConsoleExtensions.WriteInColor("Seat taken", backgroundColor: ConsoleColor.DarkRed);
             Console.WriteLine();
         }
 

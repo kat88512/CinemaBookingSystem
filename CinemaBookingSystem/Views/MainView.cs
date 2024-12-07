@@ -1,4 +1,5 @@
 ﻿using CinemaBookingSystem.Consts;
+using CinemaBookingSystem.Extensions;
 using Domain.Models.CinemaModels;
 using Domain.Models.ScreeningModels;
 using Services.Requests.CinemaRequests;
@@ -49,9 +50,11 @@ namespace CinemaBookingSystem.Views
                 var cinemaRoomType = s.CinemaRoom.RoomType;
 
                 Console.WriteLine($"{i}. {movieName} on {formattedStartDate}");
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.WriteLine($"Cinema room type: {cinemaRoomType.Name}");
-                Console.ForegroundColor = ConsoleColor.White;
+
+                ConsoleExtensions.WriteLineInColor(
+                    $"Cinema room type: {cinemaRoomType.Name}",
+                    foregroundColor: ConsoleColor.Cyan
+                );
             }
         }
 
