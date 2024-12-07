@@ -1,6 +1,8 @@
 ﻿using CinemaBookingSystem.Consts;
-using DataAccess.Repositories;
-using Domain.Models;
+using DataAccess.Repositories.CinemaRepositories;
+using DataAccess.Repositories.ScreeningRepositories;
+using Domain.Models.CinemaModels;
+using Domain.Models.ScreeningModels;
 
 namespace CinemaBookingSystem.Views
 {

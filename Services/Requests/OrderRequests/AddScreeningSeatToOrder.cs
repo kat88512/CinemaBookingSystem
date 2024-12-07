@@ -1,9 +1,10 @@
-﻿using DataAccess.Repositories;
-using DataAccess.Repositories.Interfaces;
+﻿using DataAccess.Repositories.OrderRepositories;
+using DataAccess.Repositories.ScreeningRepositories;
 using Domain.Consts;
 using Domain.Models;
+using Domain.Models.OrderModels;
 
-namespace Services.Requests.Commands
+namespace Services.Requests.OrderRequests
 {
     public class AddScreeningSeatToOrder : IRequest<Order>
     {

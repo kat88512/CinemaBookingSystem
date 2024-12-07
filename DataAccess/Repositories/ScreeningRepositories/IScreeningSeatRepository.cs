@@ -1,6 +1,6 @@
-﻿using Domain.Models;
+﻿using Domain.Models.ScreeningModels;
 
-namespace DataAccess.Repositories.Interfaces
+namespace DataAccess.Repositories.ScreeningRepositories
 {
     public interface IScreeningSeatRepository
     {

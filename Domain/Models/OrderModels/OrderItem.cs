@@ -1,4 +1,6 @@
-﻿namespace Domain.Models
+﻿using Domain.Models.ScreeningModels;
+
+namespace Domain.Models.OrderModels
 {
     public class OrderItem
     {

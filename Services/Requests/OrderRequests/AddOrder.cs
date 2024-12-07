@@ -1,8 +1,7 @@
-﻿using DataAccess.Repositories;
-using DataAccess.Repositories.Interfaces;
-using Domain.Models;
+﻿using DataAccess.Repositories.OrderRepositories;
+using Domain.Models.OrderModels;
 
-namespace Services.Requests.Commands
+namespace Services.Requests.OrderRequests
 {
     public class AddOrder : IRequest<Order>
     {

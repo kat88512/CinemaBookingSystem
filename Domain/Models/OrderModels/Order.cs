@@ -1,6 +1,4 @@
-﻿using Domain.Models.Enums;
-
-namespace Domain.Models
+﻿namespace Domain.Models.OrderModels
 {
     public class Order
     {

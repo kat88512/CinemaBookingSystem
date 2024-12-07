@@ -1,7 +1,6 @@
-﻿using DataAccess.Repositories.Interfaces;
-using Domain.Models;
+﻿using Domain.Models.ScreeningModels;
 
-namespace DataAccess.Repositories
+namespace DataAccess.Repositories.ScreeningRepositories
 {
     public class ScreeningSeatInMemoryRepository : IScreeningSeatRepository
     {

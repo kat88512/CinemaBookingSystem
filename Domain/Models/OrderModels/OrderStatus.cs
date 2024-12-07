@@ -1,4 +1,4 @@
-﻿namespace Domain.Models.Enums
+﻿namespace Domain.Models.OrderModels
 {
     public enum OrderStatus
     {

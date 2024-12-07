@@ -1,6 +1,7 @@
-﻿using Domain.Models.Enums;
+﻿using Domain.Models.CinemaModels;
+using Domain.Models.MovieModels;
 
-namespace Domain.Models
+namespace Domain.Models.ScreeningModels
 {
     public class Screening
     {

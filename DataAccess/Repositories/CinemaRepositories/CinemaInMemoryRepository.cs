@@ -1,7 +1,6 @@
-﻿using DataAccess.Repositories.Interfaces;
-using Domain.Models;
+﻿using Domain.Models.CinemaModels;
 
-namespace DataAccess.Repositories
+namespace DataAccess.Repositories.CinemaRepositories
 {
     public class CinemaInMemoryRepository : ICinemaRepository
     {

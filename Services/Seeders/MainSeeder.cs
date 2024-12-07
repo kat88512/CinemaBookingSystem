@@ -1,7 +1,7 @@
-﻿using DataAccess.Repositories;
-using DataAccess.Repositories.Interfaces;
-using Domain.Models;
-using Domain.Models.Enums;
+﻿using DataAccess.Repositories.CinemaRepositories;
+using DataAccess.Repositories.MovieRepositories;
+using DataAccess.Repositories.ScreeningRepositories;
+using Domain.Models.ScreeningModels;
 
 namespace Services.Seeders
 {

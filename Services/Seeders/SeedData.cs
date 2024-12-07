@@ -1,5 +1,5 @@
-﻿using Domain.Models;
-using Domain.Models.Enums;
+﻿using Domain.Models.CinemaModels;
+using Domain.Models.MovieModels;
 
 namespace Services.Seeders
 {

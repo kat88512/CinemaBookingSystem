@@ -1,6 +1,6 @@
-﻿using Domain.Models;
+﻿using Domain.Models.CinemaModels;
 
-namespace DataAccess.Repositories.Interfaces
+namespace DataAccess.Repositories.CinemaRepositories
 {
     public interface ICinemaRepository
     {

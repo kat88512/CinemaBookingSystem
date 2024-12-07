@@ -1,6 +1,6 @@
-﻿using Domain.Models;
+﻿using Domain.Models.OrderModels;
 
-namespace DataAccess.Repositories.Interfaces
+namespace DataAccess.Repositories.OrderRepositories
 {
     public interface IOrderRepository
     {

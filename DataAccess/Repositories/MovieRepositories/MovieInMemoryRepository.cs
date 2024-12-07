@@ -1,7 +1,6 @@
-﻿using DataAccess.Repositories.Interfaces;
-using Domain.Models;
+﻿using Domain.Models.MovieModels;
 
-namespace DataAccess.Repositories
+namespace DataAccess.Repositories.MovieRepositories
 {
     public class MovieInMemoryRepository : IMovieRepository
     {

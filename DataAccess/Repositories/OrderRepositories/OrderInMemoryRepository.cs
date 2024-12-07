@@ -1,7 +1,6 @@
-﻿using DataAccess.Repositories.Interfaces;
-using Domain.Models;
+﻿using Domain.Models.OrderModels;
 
-namespace DataAccess.Repositories
+namespace DataAccess.Repositories.OrderRepositories
 {
     public class OrderInMemoryRepository : IOrderRepository
     {

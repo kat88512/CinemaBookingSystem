@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Domain.Models.Enums
+namespace Domain.Models.ScreeningModels
 {
     public enum VideoTechnology
     {

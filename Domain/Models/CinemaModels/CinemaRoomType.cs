@@ -1,6 +1,6 @@
 ﻿using Domain.Utilities;
 
-namespace Domain.Models.Enums
+namespace Domain.Models.CinemaModels
 {
     public class CinemaRoomType : Enumeration
     {
