@@ -1,5 +1,5 @@
-﻿using CinemaBookingSystem.Seeders;
-using CinemaBookingSystem.Views;
+﻿using CinemaBookingSystem.Views;
+using Services.Seeders;
 
 var seeder = new MainSeeder();
 

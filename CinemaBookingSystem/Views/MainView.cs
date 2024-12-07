@@ -1,6 +1,6 @@
-﻿using CinemaBookingSystem.Models;
-using CinemaBookingSystem.Models.Consts;
-using CinemaBookingSystem.Repositories;
+﻿using CinemaBookingSystem.Consts;
+using DataAccess.Repositories;
+using Domain.Models;
 
 namespace CinemaBookingSystem.Views
 {
