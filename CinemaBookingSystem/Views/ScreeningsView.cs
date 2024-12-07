@@ -7,16 +7,16 @@ using Services.Requests.ScreeningRequests;
 
 namespace CinemaBookingSystem.Views
 {
-    internal class MainView : IView
+    internal class ScreeningsView : IView
     {
-        public static MainView Instance => _instance;
+        public static ScreeningsView Instance => _instance;
 
-        private static readonly MainView _instance = new MainView();
+        private static readonly ScreeningsView _instance = new ScreeningsView();
 
         private Cinema _cinema = null!;
         private List<Screening> _screenings = [];
 
-        private MainView() { }
+        private ScreeningsView() { }
 
         public void Display()
         {
@@ -27,7 +27,7 @@ namespace CinemaBookingSystem.Views
             PrintScreenings();
             var screening = ChooseScreening();
 
-            new SeatView(screening.Id).Display();
+            new SeatPlanView(screening.Id).Display();
         }
 
         private void FetchData()
