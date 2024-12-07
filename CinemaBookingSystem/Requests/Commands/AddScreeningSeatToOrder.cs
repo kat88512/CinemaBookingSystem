@@ -5,7 +5,7 @@ using CinemaBookingSystem.Repositories.Interfaces;
 
 namespace CinemaBookingSystem.Requests.Commands
 {
-    internal class AddScreeningSeatToOrder
+    internal class AddScreeningSeatToOrder : IRequest<Order>
     {
         public Guid ScreeningSeatId { get; set; }
         public Guid OrderId { get; set; }
@@ -20,13 +20,13 @@ namespace CinemaBookingSystem.Requests.Commands
             OrderId = orderId;
         }
 
-        public CommandResult<Order> Execute()
+        public RequestResult<Order> Execute()
         {
             var order = _orderRepository.GetById(OrderId);
 
             if (order is null)
             {
-                return new CommandResult<Order>
+                return new RequestResult<Order>
                 {
                     IsSuccess = false,
                     ErrorMessage = "Order does not exist"
@@ -37,7 +37,7 @@ namespace CinemaBookingSystem.Requests.Commands
 
             if (seat is null)
             {
-                return new CommandResult<Order>
+                return new RequestResult<Order>
                 {
                     IsSuccess = false,
                     ErrorMessage = "Seat does not exist"
@@ -46,7 +46,7 @@ namespace CinemaBookingSystem.Requests.Commands
 
             if (seat.IsTaken)
             {
-                return new CommandResult<Order>
+                return new RequestResult<Order>
                 {
                     IsSuccess = false,
                     ErrorMessage = "Seat is already taken"
@@ -59,7 +59,7 @@ namespace CinemaBookingSystem.Requests.Commands
             order.AddItem(new OrderItem(seat, PriceList.SeatPrice));
             _orderRepository.Update(order);
 
-            return new CommandResult<Order> { IsSuccess = true, Value = order };
+            return new RequestResult<Order> { IsSuccess = true, Value = order };
         }
     }
 }

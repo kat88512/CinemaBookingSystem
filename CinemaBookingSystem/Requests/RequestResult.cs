@@ -1,6 +1,6 @@
 ﻿namespace CinemaBookingSystem.Requests
 {
-    internal class CommandResult<T>
+    internal class RequestResult<T>
     {
         public bool IsSuccess { get; set; }
         public string? ErrorMessage { get; set; }

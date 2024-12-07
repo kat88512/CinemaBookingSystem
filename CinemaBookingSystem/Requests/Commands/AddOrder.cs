@@ -4,16 +4,16 @@ using CinemaBookingSystem.Repositories.Interfaces;
 
 namespace CinemaBookingSystem.Requests.Commands
 {
-    internal class AddOrder
+    internal class AddOrder : IRequest<Order>
     {
         private readonly IOrderRepository _orderRepository = OrderInMemoryRepository.Instance;
 
-        public CommandResult<Order> Execute()
+        public RequestResult<Order> Execute()
         {
             var order = new Order();
             _orderRepository.Add(order);
 
-            return new CommandResult<Order> { IsSuccess = true, Value = order };
+            return new RequestResult<Order> { IsSuccess = true, Value = order };
         }
     }
 }
