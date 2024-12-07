@@ -5,11 +5,11 @@ namespace CinemaBookingSystem.Models.Enums
     public class CinemaRoomType : Enumeration
     {
         public static readonly CinemaRoomType Small =
-            new(1, nameof(Small), rowsCount: 8, seatsPerRowCount: 10);
+            new(1, nameof(Small), rowsCount: 5, seatsPerRowCount: 5);
         public static readonly CinemaRoomType Medium =
-            new(2, nameof(Medium), rowsCount: 12, seatsPerRowCount: 10);
+            new(2, nameof(Medium), rowsCount: 5, seatsPerRowCount: 7);
         public static readonly CinemaRoomType Large =
-            new(3, nameof(Large), rowsCount: 16, seatsPerRowCount: 10);
+            new(3, nameof(Large), rowsCount: 5, seatsPerRowCount: 10);
 
         public int RowsCount { get; private init; }
         public int SeatsPerRowCount { get; private init; }

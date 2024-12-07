@@ -1,6 +1,6 @@
 ﻿namespace CinemaBookingSystem.Models
 {
-    internal class OrderItem
+    public class OrderItem
     {
         public ScreeningSeat ScreeningSeat { get; private set; }
         public int SeatPrice { get; private set; }
