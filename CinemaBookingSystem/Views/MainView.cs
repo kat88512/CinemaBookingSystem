@@ -1,8 +1,8 @@
 ﻿using CinemaBookingSystem.Consts;
-using DataAccess.Repositories.CinemaRepositories;
-using DataAccess.Repositories.ScreeningRepositories;
 using Domain.Models.CinemaModels;
 using Domain.Models.ScreeningModels;
+using Services.Requests.CinemaRequests;
+using Services.Requests.ScreeningRequests;
 
 namespace CinemaBookingSystem.Views
 {
@@ -11,13 +11,6 @@ namespace CinemaBookingSystem.Views
         public static MainView Instance => _instance;
 
         private static readonly MainView _instance = new MainView();
-
-        private readonly ScreeningInMemoryRepository _screeningRepository =
-            ScreeningInMemoryRepository.Instance;
-        private readonly CinemaInMemoryRepository _cinemaRepository =
-            CinemaInMemoryRepository.Instance;
-        private readonly ScreeningSeatInMemoryRepository _screeningSeatRepository =
-            ScreeningSeatInMemoryRepository.Instance;
 
         private Cinema _cinema = null!;
         private List<Screening> _screenings = [];
@@ -38,8 +31,8 @@ namespace CinemaBookingSystem.Views
 
         private void FetchData()
         {
-            _cinema = _cinemaRepository.GetFirst()!;
-            _screenings = _screeningRepository.GetAll(_cinema.Id).ToList();
+            _cinema = new GetCinema().Execute().Value!;
+            _screenings = new GetScreenings(_cinema.Id).Execute().Value!.ToList();
         }
 
         private void PrintScreenings()
@@ -48,7 +41,7 @@ namespace CinemaBookingSystem.Views
 
             Console.WriteLine($"Available screenings: \n");
 
-            for (int i = 0; i < _screenings.Count; i++)
+            for (int i = 0; i < _screenings.Count(); i++)
             {
                 var s = _screenings[i];
                 var movieName = s.Movie.Name;
