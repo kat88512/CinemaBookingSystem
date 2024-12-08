@@ -38,6 +38,8 @@ namespace CinemaBookingSystem.Views
                 AddSeatToOrder();
                 ShowContinueQuestion();
             }
+
+            new SummaryView(_order.Id).Display();
         }
 
         private void FetchData()
