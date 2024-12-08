@@ -5,19 +5,19 @@ namespace Services.Requests.ScreeningRequests
 {
     public class ScreeningSeats : IRequest<IEnumerable<ScreeningSeat>>
     {
-        private readonly Guid _screeningId;
+        public Guid ScreeningId { get; set; }
 
         private readonly IScreeningSeatRepository _screeningSeats =
             ScreeningSeatInMemoryRepository.Instance;
 
         public ScreeningSeats(Guid screeningId)
         {
-            _screeningId = screeningId;
+            ScreeningId = screeningId;
         }
 
         public RequestResult<IEnumerable<ScreeningSeat>> Execute()
         {
-            var seats = _screeningSeats.GetAll(_screeningId);
+            var seats = _screeningSeats.GetAll(ScreeningId);
 
             return new RequestResult<IEnumerable<ScreeningSeat>>()
             {

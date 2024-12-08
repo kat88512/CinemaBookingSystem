@@ -49,7 +49,15 @@ namespace CinemaBookingSystem.Views
                 var formattedStartDate = s.TimeFrom.ToString(Formats.DateTimeFormat);
                 var cinemaRoomType = s.CinemaRoom.RoomType;
 
-                Console.WriteLine($"{i}. {movieName} on {formattedStartDate}");
+                Console.Write($"{i}. {movieName} on {formattedStartDate}");
+
+                if (s.VideoTechnology == VideoTechnology.ThreeDimensional)
+                {
+                    Console.Write(" ");
+                    ConsoleExtensions.WriteInColor("3D!", backgroundColor: ConsoleColor.Blue);
+                }
+
+                Console.WriteLine();
 
                 ConsoleExtensions.WriteLineInColor(
                     $"Cinema room type: {cinemaRoomType.Name}",
