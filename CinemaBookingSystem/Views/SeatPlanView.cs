@@ -182,6 +182,13 @@ namespace CinemaBookingSystem.Views
 
                 var input = Console.ReadLine();
 
+                if (input is null)
+                {
+                    Console.WriteLine("Please provide value!");
+                    continue;
+                }
+
+                input = input.ToUpper();
                 if (input != "Y" && input != "N")
                 {
                     Console.WriteLine("Incorrect key!");
