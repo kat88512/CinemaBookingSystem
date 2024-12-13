@@ -2,15 +2,9 @@
 
 namespace Domain.Models.OrderModels
 {
-    public class OrderItem
+    public class OrderItem(ScreeningSeat screeningSeat, decimal seatPrice)
     {
-        public ScreeningSeat ScreeningSeat { get; private set; }
-        public int SeatPrice { get; private set; }
-
-        public OrderItem(ScreeningSeat screeningSeat, int seatPrice)
-        {
-            ScreeningSeat = screeningSeat;
-            SeatPrice = seatPrice;
-        }
+        public ScreeningSeat ScreeningSeat { get; private set; } = screeningSeat;
+        public decimal SeatPrice { get; private set; } = seatPrice;
     }
 }

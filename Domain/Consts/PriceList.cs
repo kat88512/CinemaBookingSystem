@@ -2,7 +2,7 @@
 {
     public static class PriceList
     {
-        public const int SeatPrice = 2500;
-        public const int ThreeDimensionalGlasses = 200;
+        public const decimal SeatPrice = 25.00m;
+        public const decimal ThreeDimensionalGlasses = 2.00m;
     }
 }

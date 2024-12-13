@@ -7,20 +7,15 @@ using Services.Requests.ScreeningRequests;
 
 namespace CinemaBookingSystem.Views
 {
-    internal class SeatPlanView : IView
+    internal class SeatPlanView(Guid screeningId) : IView
     {
-        private readonly Guid _requestedScreeningId;
+        private readonly Guid _requestedScreeningId = screeningId;
 
         private Order _order = null!;
         private Screening _screening = null!;
         private IEnumerable<ScreeningSeat> _screeningSeats = null!;
 
         private bool _userIsOrdering = true;
-
-        public SeatPlanView(Guid screeningId)
-        {
-            _requestedScreeningId = screeningId;
-        }
 
         public void Display()
         {
@@ -38,6 +33,8 @@ namespace CinemaBookingSystem.Views
                 AddSeatToOrder();
                 ShowContinueQuestion();
             }
+
+            new SummaryView(_order.Id).Display();
         }
 
         private void FetchData()
@@ -113,7 +110,7 @@ namespace CinemaBookingSystem.Views
         {
             Console.Write("Your seats: ");
 
-            if (_order.Items.Count() == 0)
+            if (!_order.Items.Any())
             {
                 Console.WriteLine("none!\n");
                 return;
@@ -180,6 +177,13 @@ namespace CinemaBookingSystem.Views
 
                 var input = Console.ReadLine();
 
+                if (input is null)
+                {
+                    Console.WriteLine("Please provide value!");
+                    continue;
+                }
+
+                input = input.ToUpper();
                 if (input != "Y" && input != "N")
                 {
                     Console.WriteLine("Incorrect key!");

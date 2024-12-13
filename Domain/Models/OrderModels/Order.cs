@@ -5,7 +5,7 @@
         public Guid Id { get; private init; } = Guid.NewGuid();
         public OrderStatus Status { get; private set; } = OrderStatus.InProgress;
         public IEnumerable<OrderItem> Items => _items.ToList();
-        public int ValueToPay { get; private set; } = 0;
+        public decimal ValueToPay => _items.Sum(i => i.SeatPrice);
 
         public const int MaxOrderItemsCount = 10;
 
