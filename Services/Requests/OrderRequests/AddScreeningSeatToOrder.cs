@@ -5,22 +5,16 @@ using Domain.Models.OrderModels;
 
 namespace Services.Requests.OrderRequests
 {
-    public class AddScreeningSeatToOrder : IRequest<Order>
+    public class AddScreeningSeatToOrder(Guid screeningSeatId, Guid orderId) : IRequest<Order>
     {
-        public Guid ScreeningSeatId { get; set; }
-        public Guid OrderId { get; set; }
+        public Guid ScreeningSeatId { get; set; } = screeningSeatId;
+        public Guid OrderId { get; set; } = orderId;
 
         private readonly IScreeningSeatRepository _screeningSeatRepository =
             ScreeningSeatInMemoryRepository.Instance;
         private readonly IScreeningRepository _screeningRepository =
             ScreeningInMemoryRepository.Instance;
         private readonly IOrderRepository _orderRepository = OrderInMemoryRepository.Instance;
-
-        public AddScreeningSeatToOrder(Guid screeningSeatId, Guid orderId)
-        {
-            ScreeningSeatId = screeningSeatId;
-            OrderId = orderId;
-        }
 
         public RequestResult<Order> Execute()
         {

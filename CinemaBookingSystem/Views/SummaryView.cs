@@ -4,16 +4,11 @@ using Services.Requests.OrderRequests;
 
 namespace CinemaBookingSystem.Views
 {
-    internal class SummaryView : IView
+    internal class SummaryView(Guid orderId) : IView
     {
-        private readonly Guid _orderId;
+        private readonly Guid _orderId = orderId;
 
         private Order _order = null!;
-
-        public SummaryView(Guid orderId)
-        {
-            _orderId = orderId;
-        }
 
         public void Display()
         {

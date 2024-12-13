@@ -7,20 +7,15 @@ using Services.Requests.ScreeningRequests;
 
 namespace CinemaBookingSystem.Views
 {
-    internal class SeatPlanView : IView
+    internal class SeatPlanView(Guid screeningId) : IView
     {
-        private readonly Guid _requestedScreeningId;
+        private readonly Guid _requestedScreeningId = screeningId;
 
         private Order _order = null!;
         private Screening _screening = null!;
         private IEnumerable<ScreeningSeat> _screeningSeats = null!;
 
         private bool _userIsOrdering = true;
-
-        public SeatPlanView(Guid screeningId)
-        {
-            _requestedScreeningId = screeningId;
-        }
 
         public void Display()
         {
