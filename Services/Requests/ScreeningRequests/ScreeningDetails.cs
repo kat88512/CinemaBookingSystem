@@ -14,13 +14,13 @@ namespace Services.Requests.ScreeningRequests
             ScreeningId = screeningId;
         }
 
-        public RequestResult<Screening> Execute()
+        public Response<Screening> Execute()
         {
             var screening = _screenings.GetById(ScreeningId);
 
             if (screening is null)
             {
-                return new RequestResult<Screening>()
+                return new Response<Screening>()
                 {
                     IsSuccess = false,
                     ErrorMessage = "Screening does not exist"
@@ -28,7 +28,7 @@ namespace Services.Requests.ScreeningRequests
             }
             else
             {
-                return new RequestResult<Screening>() { IsSuccess = true, Value = screening };
+                return new Response<Screening>() { IsSuccess = true, Value = screening };
             }
         }
     }

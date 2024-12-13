@@ -16,13 +16,13 @@ namespace Services.Requests.OrderRequests
             ScreeningInMemoryRepository.Instance;
         private readonly IOrderRepository _orderRepository = OrderInMemoryRepository.Instance;
 
-        public RequestResult<Order> Execute()
+        public Response<Order> Execute()
         {
             var order = _orderRepository.GetById(OrderId);
 
             if (order is null)
             {
-                return new RequestResult<Order>
+                return new Response<Order>
                 {
                     IsSuccess = false,
                     ErrorMessage = "Order does not exist"
@@ -34,7 +34,7 @@ namespace Services.Requests.OrderRequests
 
             if (itemsCount >= maxItemsCount)
             {
-                return new RequestResult<Order>
+                return new Response<Order>
                 {
                     IsSuccess = false,
                     ErrorMessage =
@@ -46,7 +46,7 @@ namespace Services.Requests.OrderRequests
 
             if (seat is null)
             {
-                return new RequestResult<Order>
+                return new Response<Order>
                 {
                     IsSuccess = false,
                     ErrorMessage = "Seat does not exist"
@@ -57,7 +57,7 @@ namespace Services.Requests.OrderRequests
 
             if (screening.TimeFrom < DateTime.Now)
             {
-                return new RequestResult<Order>
+                return new Response<Order>
                 {
                     IsSuccess = false,
                     ErrorMessage = "Screening start date is in the past"
@@ -66,7 +66,7 @@ namespace Services.Requests.OrderRequests
 
             if (seat.IsTaken)
             {
-                return new RequestResult<Order>
+                return new Response<Order>
                 {
                     IsSuccess = false,
                     ErrorMessage = "Seat is already taken"
@@ -79,7 +79,7 @@ namespace Services.Requests.OrderRequests
             order.AddItem(new OrderItem(seat, PriceList.SeatPrice));
             _orderRepository.Update(order);
 
-            return new RequestResult<Order> { IsSuccess = true, Value = order };
+            return new Response<Order> { IsSuccess = true, Value = order };
         }
     }
 }

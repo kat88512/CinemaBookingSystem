@@ -1,6 +1,6 @@
 ﻿namespace Services.Requests
 {
-    public class RequestResult<T>
+    public class Response<T>
     {
         public bool IsSuccess { get; set; }
         public string? ErrorMessage { get; set; }

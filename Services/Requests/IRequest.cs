@@ -2,6 +2,6 @@
 {
     internal interface IRequest<TResponse>
     {
-        RequestResult<TResponse> Execute();
+        Response<TResponse> Execute();
     }
 }

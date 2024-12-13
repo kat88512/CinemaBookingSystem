@@ -14,15 +14,11 @@ namespace Services.Requests.ScreeningRequests
             CinemaId = cinemaId;
         }
 
-        public RequestResult<IEnumerable<Screening>> Execute()
+        public Response<IEnumerable<Screening>> Execute()
         {
             var screenings = _screenings.GetAll(CinemaId);
 
-            return new RequestResult<IEnumerable<Screening>>
-            {
-                IsSuccess = true,
-                Value = screenings
-            };
+            return new Response<IEnumerable<Screening>> { IsSuccess = true, Value = screenings };
         }
     }
 }

@@ -7,12 +7,12 @@ namespace Services.Requests.OrderRequests
     {
         private readonly IOrderRepository _orderRepository = OrderInMemoryRepository.Instance;
 
-        public RequestResult<Order> Execute()
+        public Response<Order> Execute()
         {
             var order = new Order();
             _orderRepository.Add(order);
 
-            return new RequestResult<Order> { IsSuccess = true, Value = order };
+            return new Response<Order> { IsSuccess = true, Value = order };
         }
     }
 }

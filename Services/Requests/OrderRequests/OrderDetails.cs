@@ -14,13 +14,13 @@ namespace Services.Requests.OrderRequests
             OrderId = orderId;
         }
 
-        public RequestResult<Order> Execute()
+        public Response<Order> Execute()
         {
             var order = _orders.GetById(OrderId);
 
             if (order is null)
             {
-                return new RequestResult<Order>
+                return new Response<Order>
                 {
                     IsSuccess = false,
                     ErrorMessage = "Order does not exist"
@@ -28,7 +28,7 @@ namespace Services.Requests.OrderRequests
             }
             else
             {
-                return new RequestResult<Order> { IsSuccess = true, Value = order, };
+                return new Response<Order> { IsSuccess = true, Value = order, };
             }
         }
     }

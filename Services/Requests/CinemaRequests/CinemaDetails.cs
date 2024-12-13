@@ -7,11 +7,11 @@ namespace Services.Requests.CinemaRequests
     {
         private readonly ICinemaRepository _cinemas = CinemaInMemoryRepository.Instance;
 
-        public RequestResult<Cinema> Execute()
+        public Response<Cinema> Execute()
         {
             var cinema = _cinemas.GetFirst();
 
-            return new RequestResult<Cinema> { IsSuccess = true, Value = cinema };
+            return new Response<Cinema> { IsSuccess = true, Value = cinema };
         }
     }
 }
