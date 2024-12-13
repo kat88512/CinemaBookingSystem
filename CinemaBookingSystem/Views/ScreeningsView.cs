@@ -11,7 +11,7 @@ namespace CinemaBookingSystem.Views
     {
         public static ScreeningsView Instance => _instance;
 
-        private static readonly ScreeningsView _instance = new ScreeningsView();
+        private static readonly ScreeningsView _instance = new();
 
         private Cinema _cinema = null!;
         private List<Screening> _screenings = [];
@@ -42,7 +42,7 @@ namespace CinemaBookingSystem.Views
 
             Console.WriteLine($"Available screenings: \n");
 
-            for (int i = 0; i < _screenings.Count(); i++)
+            for (int i = 0; i < _screenings.Count; i++)
             {
                 var s = _screenings[i];
                 var movieName = s.Movie.Name;

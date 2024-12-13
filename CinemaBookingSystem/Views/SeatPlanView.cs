@@ -115,7 +115,7 @@ namespace CinemaBookingSystem.Views
         {
             Console.Write("Your seats: ");
 
-            if (_order.Items.Count() == 0)
+            if (!_order.Items.Any())
             {
                 Console.WriteLine("none!\n");
                 return;

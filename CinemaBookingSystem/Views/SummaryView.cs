@@ -8,7 +8,7 @@ namespace CinemaBookingSystem.Views
     {
         private readonly Guid _orderId;
 
-        private Order _order;
+        private Order _order = null!;
 
         public SummaryView(Guid orderId)
         {
