@@ -35,12 +35,12 @@ namespace CinemaBookingSystem.Views
                     $"{item.ScreeningSeat} ",
                     backgroundColor: ConsoleColor.DarkBlue
                 );
-                Console.WriteLine($": {item.SeatPrice / 100.0} zł");
+                Console.WriteLine($": {item.SeatPrice} zł");
             }
 
             Console.WriteLine();
             ConsoleExtensions.WriteInColor("Value to pay: ", foregroundColor: ConsoleColor.Cyan);
-            Console.WriteLine($"{_order.ValueToPay / 100.0} zł");
+            Console.WriteLine($"{_order.ValueToPay} zł");
         }
     }
 }
