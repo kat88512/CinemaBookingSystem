@@ -4,7 +4,7 @@ using Services.Requests;
 
 namespace Services.Services
 {
-    public class CinemaService(ICinemaRepository cinemaRepository) : ICinemaService
+    public class CinemaService(ICinemaRepository cinemaRepository)
     {
         private readonly ICinemaRepository _cinemas = cinemaRepository;
 

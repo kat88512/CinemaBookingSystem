@@ -10,7 +10,7 @@ namespace Services.Services
         IOrderRepository orderRepository,
         IScreeningRepository screeningRepository,
         IScreeningSeatRepository screeningSeatRepository
-    ) : IOrderService
+    )
     {
         private readonly IOrderRepository _orders = orderRepository;
         private readonly IScreeningRepository _screenings = screeningRepository;

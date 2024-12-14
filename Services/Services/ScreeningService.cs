@@ -4,7 +4,7 @@ using Services.Requests;
 
 namespace Services.Services
 {
-    public class ScreeningService(IScreeningRepository screeningRepository) : IScreeningService
+    public class ScreeningService(IScreeningRepository screeningRepository)
     {
         private readonly IScreeningRepository _screenings = screeningRepository;
 

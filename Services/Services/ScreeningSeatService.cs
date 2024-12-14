@@ -5,7 +5,6 @@ using Services.Requests;
 namespace Services.Services
 {
     public class ScreeningSeatService(IScreeningSeatRepository screeningSeatRepository)
-        : IScreeningSeatService
     {
         private readonly IScreeningSeatRepository _screeningSeats = screeningSeatRepository;
 
