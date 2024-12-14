@@ -2,20 +2,27 @@
 using CinemaBookingSystem.Extensions;
 using Domain.Models.OrderModels;
 using Domain.Models.ScreeningModels;
-using Services.Requests.OrderRequests;
-using Services.Requests.ScreeningRequests;
+using Services.Services;
 
 namespace CinemaBookingSystem.Views
 {
-    internal class SeatPlanView(Guid screeningId) : IView
+    internal class SeatPlanView(
+        ScreeningService screeningService,
+        ScreeningSeatService screeningSeatService,
+        OrderService orderService,
+        Guid screeningId
+    ) : IView
     {
-        private readonly Guid _requestedScreeningId = screeningId;
-
         private Order _order = null!;
         private Screening _screening = null!;
         private IEnumerable<ScreeningSeat> _screeningSeats = null!;
 
         private bool _userIsOrdering = true;
+
+        private readonly Guid _requestedScreeningId = screeningId;
+        private readonly ScreeningService _screeningService = screeningService;
+        private readonly ScreeningSeatService _screeningSeatService = screeningSeatService;
+        private readonly OrderService _orderService = orderService;
 
         public void Display()
         {
@@ -39,16 +46,14 @@ namespace CinemaBookingSystem.Views
 
         private void FetchData()
         {
-            _screening = new ScreeningDetails(_requestedScreeningId).Execute().Value!;
+            _screening = _screeningService.GetScreeningDetails(_requestedScreeningId).Value!;
 
-            _screeningSeats = new ScreeningSeats(_screening.Id).Execute().Value!;
+            _screeningSeats = _screeningSeatService.GetScreeningSeats(_screening.Id).Value!;
         }
 
         private void CreateOrder()
         {
-            var requestResult = new AddOrder().Execute();
-
-            _order = requestResult.Value!;
+            _order = _orderService.AddOrder().Value!;
         }
 
         private void PrintSeats()
@@ -155,8 +160,7 @@ namespace CinemaBookingSystem.Views
                     continue;
                 }
 
-                var request = new AddScreeningSeatToOrder(seat.Id, _order.Id);
-                var result = request.Execute();
+                var result = _orderService.AddScreeningSeatToOrder(_order.Id, seat.Id);
 
                 if (!result.IsSuccess)
                 {

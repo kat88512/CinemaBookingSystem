@@ -2,21 +2,18 @@
 using CinemaBookingSystem.Extensions;
 using Domain.Models.CinemaModels;
 using Domain.Models.ScreeningModels;
-using Services.Requests.CinemaRequests;
-using Services.Requests.ScreeningRequests;
+using Services.Services;
 
 namespace CinemaBookingSystem.Views
 {
-    internal class ScreeningsView : IView
+    internal class ScreeningsView(CinemaService cinemaService, ScreeningService screeningService)
+        : IView
     {
-        public static ScreeningsView Instance => _instance;
-
-        private static readonly ScreeningsView _instance = new();
-
         private Cinema _cinema = null!;
         private List<Screening> _screenings = [];
 
-        private ScreeningsView() { }
+        private readonly CinemaService _cinemaService = cinemaService;
+        private readonly ScreeningService _screeningService = screeningService;
 
         public void Display()
         {
@@ -32,8 +29,8 @@ namespace CinemaBookingSystem.Views
 
         private void FetchData()
         {
-            _cinema = new CinemaDetails().Execute().Value!;
-            _screenings = new CinemaScreenings(_cinema.Id).Execute().Value!.ToList();
+            _cinema = _cinemaService.GetCinemaDetails().Value!;
+            _screenings = _screeningService.GetCinemaScreenings(_cinema.Id).Value!.ToList();
         }
 
         private void PrintScreenings()
