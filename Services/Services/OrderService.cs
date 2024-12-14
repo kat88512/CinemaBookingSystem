@@ -89,5 +89,23 @@ namespace Services.Services
 
             return new Response<Order> { IsSuccess = true, Value = order };
         }
+
+        public Response<Order> GetOrderDetails(Guid orderId)
+        {
+            var order = _orders.GetById(orderId);
+
+            if (order is null)
+            {
+                return new Response<Order>()
+                {
+                    IsSuccess = false,
+                    ErrorMessage = "Order does not exist"
+                };
+            }
+            else
+            {
+                return new Response<Order>() { IsSuccess = true, Value = order };
+            }
+        }
     }
 }
