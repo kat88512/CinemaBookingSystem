@@ -1,10 +1,10 @@
-﻿using CinemaBookingSystem.Consts;
-using CinemaBookingSystem.Extensions;
-using Domain.Models.CinemaModels;
+﻿using Domain.Models.CinemaModels;
 using Domain.Models.ScreeningModels;
 using Services.Services;
+using UI.Consts;
+using UI.Extensions;
 
-namespace CinemaBookingSystem.Views
+namespace UI.Views
 {
     internal class ScreeningsView(CinemaService cinemaService, ScreeningService screeningService)
         : IView

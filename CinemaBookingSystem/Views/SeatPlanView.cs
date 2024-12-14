@@ -1,10 +1,10 @@
-﻿using CinemaBookingSystem.Consts;
-using CinemaBookingSystem.Extensions;
-using Domain.Models.OrderModels;
+﻿using Domain.Models.OrderModels;
 using Domain.Models.ScreeningModels;
 using Services.Services;
+using UI.Consts;
+using UI.Extensions;
 
-namespace CinemaBookingSystem.Views
+namespace UI.Views
 {
     internal class SeatPlanView(
         ScreeningService screeningService,
@@ -142,7 +142,7 @@ namespace CinemaBookingSystem.Views
                 var parseSuccess = int.TryParse(input, out var number);
 
                 var rowNumber = number / 10;
-                var seatNumber = number - (rowNumber * 10);
+                var seatNumber = number - rowNumber * 10;
 
                 if (!parseSuccess)
                 {

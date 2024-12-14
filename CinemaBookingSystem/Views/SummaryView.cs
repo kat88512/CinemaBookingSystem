@@ -1,8 +1,8 @@
-﻿using CinemaBookingSystem.Extensions;
-using Domain.Models.OrderModels;
+﻿using Domain.Models.OrderModels;
 using Services.Services;
+using UI.Extensions;
 
-namespace CinemaBookingSystem.Views
+namespace UI.Views
 {
     internal class SummaryView(OrderService orderService, Guid orderId) : IView
     {

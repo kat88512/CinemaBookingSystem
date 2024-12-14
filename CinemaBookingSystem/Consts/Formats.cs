@@ -1,4 +1,4 @@
-﻿namespace CinemaBookingSystem.Consts
+﻿namespace UI.Consts
 {
     internal static class Formats
     {
