@@ -5,21 +5,22 @@ using Domain.Models.ScreeningModels;
 
 namespace Services.Seeders
 {
-    public class MainSeeder
+    public class MainSeeder(
+        IMovieRepository movieRepository,
+        ICinemaRepository cinemaRepository,
+        ICinemaRoomRepository cinemaRoomRepository,
+        IScreeningRepository screeningRepository,
+        IScreeningSeatRepository screeningSeatRepository
+    )
     {
-        public readonly IMovieRepository _movieRepository = MovieInMemoryRepository.Instance;
-        public readonly ICinemaRepository _cinemaRepository = CinemaInMemoryRepository.Instance;
-        public readonly ICinemaRoomRepository _cinemaRoomRepository =
-            CinemaRoomInMemoryRepository.Instance;
+        public readonly IMovieRepository _movieRepository = movieRepository;
+        public readonly ICinemaRepository _cinemaRepository = cinemaRepository;
+        public readonly ICinemaRoomRepository _cinemaRoomRepository = cinemaRoomRepository;
 
-        public readonly IScreeningRepository _screeningRepository =
-            ScreeningInMemoryRepository.Instance;
-        public readonly IScreeningSeatRepository _screeningSeatRepository =
-            ScreeningSeatInMemoryRepository.Instance;
+        public readonly IScreeningRepository _screeningRepository = screeningRepository;
+        public readonly IScreeningSeatRepository _screeningSeatRepository = screeningSeatRepository;
 
         private readonly Random _randomizer = new();
-
-        public MainSeeder() { }
 
         public void Seed()
         {
