@@ -1,21 +1,31 @@
-﻿using CinemaBookingSystem.Consts;
-using CinemaBookingSystem.Extensions;
-using Domain.Models.OrderModels;
+﻿using Domain.Models.OrderModels;
 using Domain.Models.ScreeningModels;
-using Services.Requests.OrderRequests;
-using Services.Requests.ScreeningRequests;
+using Services.Services;
+using UI.Consts;
+using UI.DataContext;
+using UI.Extensions;
 
-namespace CinemaBookingSystem.Views
+namespace UI.Views
 {
-    internal class SeatPlanView(Guid screeningId) : IView
+    internal class SeatPlanView(
+        ScreeningService screeningService,
+        ScreeningSeatService screeningSeatService,
+        OrderService orderService,
+        SessionContext context,
+        Navigator navigator
+    ) : IView
     {
-        private readonly Guid _requestedScreeningId = screeningId;
-
         private Order _order = null!;
         private Screening _screening = null!;
         private IEnumerable<ScreeningSeat> _screeningSeats = null!;
+        private SessionContext _context = context;
 
         private bool _userIsOrdering = true;
+
+        private readonly ScreeningService _screeningService = screeningService;
+        private readonly ScreeningSeatService _screeningSeatService = screeningSeatService;
+        private readonly OrderService _orderService = orderService;
+        private readonly Navigator _navigator = navigator;
 
         public void Display()
         {
@@ -34,21 +44,19 @@ namespace CinemaBookingSystem.Views
                 ShowContinueQuestion();
             }
 
-            new SummaryView(_order.Id).Display();
+            _navigator.ChangeView<SummaryView>();
         }
 
         private void FetchData()
         {
-            _screening = new ScreeningDetails(_requestedScreeningId).Execute().Value!;
-
-            _screeningSeats = new ScreeningSeats(_screening.Id).Execute().Value!;
+            _screening = _screeningService.GetScreeningDetails(_context.ScreeningId).Value!;
+            _screeningSeats = _screeningSeatService.GetScreeningSeats(_context.ScreeningId).Value!;
         }
 
         private void CreateOrder()
         {
-            var requestResult = new AddOrder().Execute();
-
-            _order = requestResult.Value!;
+            _order = _orderService.AddOrder().Value!;
+            _context.OrderId = _order.Id;
         }
 
         private void PrintSeats()
@@ -137,7 +145,7 @@ namespace CinemaBookingSystem.Views
                 var parseSuccess = int.TryParse(input, out var number);
 
                 var rowNumber = number / 10;
-                var seatNumber = number - (rowNumber * 10);
+                var seatNumber = number - rowNumber * 10;
 
                 if (!parseSuccess)
                 {
@@ -155,8 +163,7 @@ namespace CinemaBookingSystem.Views
                     continue;
                 }
 
-                var request = new AddScreeningSeatToOrder(seat.Id, _order.Id);
-                var result = request.Execute();
+                var result = _orderService.AddScreeningSeatToOrder(_order.Id, seat.Id);
 
                 if (!result.IsSuccess)
                 {

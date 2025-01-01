@@ -1,12 +1,26 @@
-﻿using CinemaBookingSystem.Consts;
-using CinemaBookingSystem.Views;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Services.Seeders;
+using UI;
+using UI.DataContext;
+using UI.Extensions;
 
-var seeder = new MainSeeder();
+var services = new ServiceCollection();
 
-seeder.Seed();
+services.RegisterRepositories();
+services.RegisterServices();
 
-Console.ForegroundColor = Colors.DefaultForegroundColor;
-Console.BackgroundColor = Colors.DefaultBackgroundColor;
+services.AddScoped<SessionContext>();
 
-ScreeningsView.Instance.Display();
+services.RegisterViews();
+
+services.AddSingleton<IServiceProvider>(sp => sp);
+services.AddSingleton<Navigator>();
+
+services.AddScoped<MainSeeder>();
+services.AddSingleton<CinemaBookingSystem>();
+
+var serviceProvider = services.BuildServiceProvider();
+
+var app = serviceProvider.GetService<CinemaBookingSystem>();
+
+app.Run();

@@ -1,22 +1,26 @@
-﻿using CinemaBookingSystem.Consts;
-using CinemaBookingSystem.Extensions;
-using Domain.Models.CinemaModels;
+﻿using Domain.Models.CinemaModels;
 using Domain.Models.ScreeningModels;
-using Services.Requests.CinemaRequests;
-using Services.Requests.ScreeningRequests;
+using Services.Services;
+using UI.Consts;
+using UI.DataContext;
+using UI.Extensions;
 
-namespace CinemaBookingSystem.Views
+namespace UI.Views
 {
-    internal class ScreeningsView : IView
+    internal class ScreeningsView(
+        CinemaService cinemaService,
+        ScreeningService screeningService,
+        SessionContext context,
+        Navigator navigator
+    ) : IView
     {
-        public static ScreeningsView Instance => _instance;
-
-        private static readonly ScreeningsView _instance = new();
-
         private Cinema _cinema = null!;
         private List<Screening> _screenings = [];
+        private SessionContext _context = context;
 
-        private ScreeningsView() { }
+        private readonly CinemaService _cinemaService = cinemaService;
+        private readonly ScreeningService _screeningService = screeningService;
+        private readonly Navigator _navigator = navigator;
 
         public void Display()
         {
@@ -25,15 +29,15 @@ namespace CinemaBookingSystem.Views
             FetchData();
 
             PrintScreenings();
-            var screening = ChooseScreening();
+            ChooseScreening();
 
-            new SeatPlanView(screening.Id).Display();
+            _navigator.ChangeView<SeatPlanView>();
         }
 
         private void FetchData()
         {
-            _cinema = new CinemaDetails().Execute().Value!;
-            _screenings = new CinemaScreenings(_cinema.Id).Execute().Value!.ToList();
+            _cinema = _cinemaService.GetCinemaDetails().Value!;
+            _screenings = _screeningService.GetCinemaScreenings(_cinema.Id).Value!.ToList();
         }
 
         private void PrintScreenings()
@@ -66,7 +70,7 @@ namespace CinemaBookingSystem.Views
             }
         }
 
-        private Screening ChooseScreening()
+        private void ChooseScreening()
         {
             while (true)
             {
@@ -81,7 +85,8 @@ namespace CinemaBookingSystem.Views
                 }
                 else
                 {
-                    return _screenings[number];
+                    _context.ScreeningId = _screenings[number].Id;
+                    break;
                 }
             }
         }

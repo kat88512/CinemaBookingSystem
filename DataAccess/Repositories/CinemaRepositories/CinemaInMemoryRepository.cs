@@ -4,12 +4,7 @@ namespace DataAccess.Repositories.CinemaRepositories
 {
     public class CinemaInMemoryRepository : ICinemaRepository
     {
-        public static CinemaInMemoryRepository Instance => _instance;
-
-        private static readonly CinemaInMemoryRepository _instance = new();
         private readonly List<Cinema> _cinemas = [];
-
-        private CinemaInMemoryRepository() { }
 
         public Cinema? GetById(Guid id)
         {

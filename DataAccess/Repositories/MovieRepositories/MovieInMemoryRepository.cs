@@ -4,12 +4,7 @@ namespace DataAccess.Repositories.MovieRepositories
 {
     public class MovieInMemoryRepository : IMovieRepository
     {
-        public static MovieInMemoryRepository Instance => _instance;
-
-        private static readonly MovieInMemoryRepository _instance = new();
         private readonly List<Movie> _movies = [];
-
-        private MovieInMemoryRepository() { }
 
         public void Add(Movie movie)
         {

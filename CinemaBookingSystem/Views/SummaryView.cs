@@ -1,14 +1,21 @@
-﻿using CinemaBookingSystem.Extensions;
-using Domain.Models.OrderModels;
-using Services.Requests.OrderRequests;
+﻿using Domain.Models.OrderModels;
+using Services.Services;
+using UI.DataContext;
+using UI.Extensions;
 
-namespace CinemaBookingSystem.Views
+namespace UI.Views
 {
-    internal class SummaryView(Guid orderId) : IView
+    internal class SummaryView(
+        OrderService orderService,
+        SessionContext context,
+        Navigator navigator
+    ) : IView
     {
-        private readonly Guid _orderId = orderId;
-
         private Order _order = null!;
+        private SessionContext _context = context;
+
+        private readonly OrderService _orderService = orderService;
+        private readonly Navigator _navigator = navigator;
 
         public void Display()
         {
@@ -21,7 +28,7 @@ namespace CinemaBookingSystem.Views
 
         private void FetchData()
         {
-            _order = new OrderDetails(_orderId).Execute().Value!;
+            _order = _orderService.GetOrderDetails(_context.OrderId).Value!;
         }
 
         private void PrintOrderSummary()

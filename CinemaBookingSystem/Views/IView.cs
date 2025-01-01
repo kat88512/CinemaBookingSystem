@@ -1,4 +1,4 @@
-﻿namespace CinemaBookingSystem.Views
+﻿namespace UI.Views
 {
     internal interface IView
     {
