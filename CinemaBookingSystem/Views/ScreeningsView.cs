@@ -2,15 +2,20 @@
 using Domain.Models.ScreeningModels;
 using Services.Services;
 using UI.Consts;
+using UI.DataContext;
 using UI.Extensions;
 
 namespace UI.Views
 {
-    internal class ScreeningsView(CinemaService cinemaService, ScreeningService screeningService)
-        : IView
+    internal class ScreeningsView(
+        CinemaService cinemaService,
+        ScreeningService screeningService,
+        SessionContext context
+    ) : IView
     {
         private Cinema _cinema = null!;
         private List<Screening> _screenings = [];
+        private SessionContext _context = context;
 
         private readonly CinemaService _cinemaService = cinemaService;
         private readonly ScreeningService _screeningService = screeningService;
@@ -22,7 +27,7 @@ namespace UI.Views
             FetchData();
 
             PrintScreenings();
-            var screening = ChooseScreening();
+            ChooseScreening();
 
             new SeatPlanView(screening.Id).Display();
         }
@@ -63,7 +68,7 @@ namespace UI.Views
             }
         }
 
-        private Screening ChooseScreening()
+        private void ChooseScreening()
         {
             while (true)
             {
@@ -78,7 +83,7 @@ namespace UI.Views
                 }
                 else
                 {
-                    return _screenings[number];
+                    _context.ScreeningId = _screenings[number].Id;
                 }
             }
         }

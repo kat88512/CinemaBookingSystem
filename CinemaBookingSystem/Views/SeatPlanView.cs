@@ -2,6 +2,7 @@
 using Domain.Models.ScreeningModels;
 using Services.Services;
 using UI.Consts;
+using UI.DataContext;
 using UI.Extensions;
 
 namespace UI.Views
@@ -10,16 +11,16 @@ namespace UI.Views
         ScreeningService screeningService,
         ScreeningSeatService screeningSeatService,
         OrderService orderService,
-        Guid screeningId
+        SessionContext context
     ) : IView
     {
         private Order _order = null!;
         private Screening _screening = null!;
         private IEnumerable<ScreeningSeat> _screeningSeats = null!;
+        private SessionContext _context = context;
 
         private bool _userIsOrdering = true;
 
-        private readonly Guid _requestedScreeningId = screeningId;
         private readonly ScreeningService _screeningService = screeningService;
         private readonly ScreeningSeatService _screeningSeatService = screeningSeatService;
         private readonly OrderService _orderService = orderService;
@@ -46,14 +47,14 @@ namespace UI.Views
 
         private void FetchData()
         {
-            _screening = _screeningService.GetScreeningDetails(_requestedScreeningId).Value!;
-
-            _screeningSeats = _screeningSeatService.GetScreeningSeats(_screening.Id).Value!;
+            _screening = _screeningService.GetScreeningDetails(_context.ScreeningId).Value!;
+            _screeningSeats = _screeningSeatService.GetScreeningSeats(_context.ScreeningId).Value!;
         }
 
         private void CreateOrder()
         {
             _order = _orderService.AddOrder().Value!;
+            _context.OrderId = _order.Id;
         }
 
         private void PrintSeats()

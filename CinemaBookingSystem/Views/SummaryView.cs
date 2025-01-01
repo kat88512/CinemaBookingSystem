@@ -1,14 +1,15 @@
 ﻿using Domain.Models.OrderModels;
 using Services.Services;
+using UI.DataContext;
 using UI.Extensions;
 
 namespace UI.Views
 {
-    internal class SummaryView(OrderService orderService, Guid orderId) : IView
+    internal class SummaryView(OrderService orderService, SessionContext context) : IView
     {
         private Order _order = null!;
+        private SessionContext _context = context;
 
-        private readonly Guid _orderId = orderId;
         private readonly OrderService _orderService = orderService;
 
         public void Display()
@@ -22,7 +23,7 @@ namespace UI.Views
 
         private void FetchData()
         {
-            _order = _orderService.GetOrderDetails(_orderId).Value!;
+            _order = _orderService.GetOrderDetails(_context.OrderId).Value!;
         }
 
         private void PrintOrderSummary()
