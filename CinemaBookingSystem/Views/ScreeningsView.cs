@@ -10,7 +10,8 @@ namespace UI.Views
     internal class ScreeningsView(
         CinemaService cinemaService,
         ScreeningService screeningService,
-        SessionContext context
+        SessionContext context,
+        Navigator navigator
     ) : IView
     {
         private Cinema _cinema = null!;
@@ -19,6 +20,7 @@ namespace UI.Views
 
         private readonly CinemaService _cinemaService = cinemaService;
         private readonly ScreeningService _screeningService = screeningService;
+        private readonly Navigator _navigator = navigator;
 
         public void Display()
         {
@@ -29,7 +31,7 @@ namespace UI.Views
             PrintScreenings();
             ChooseScreening();
 
-            new SeatPlanView(screening.Id).Display();
+            _navigator.ChangeView<SeatPlanView>();
         }
 
         private void FetchData()

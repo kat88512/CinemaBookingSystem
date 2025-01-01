@@ -11,7 +11,8 @@ namespace UI.Views
         ScreeningService screeningService,
         ScreeningSeatService screeningSeatService,
         OrderService orderService,
-        SessionContext context
+        SessionContext context,
+        Navigator navigator
     ) : IView
     {
         private Order _order = null!;
@@ -24,6 +25,7 @@ namespace UI.Views
         private readonly ScreeningService _screeningService = screeningService;
         private readonly ScreeningSeatService _screeningSeatService = screeningSeatService;
         private readonly OrderService _orderService = orderService;
+        private readonly Navigator _navigator = navigator;
 
         public void Display()
         {
@@ -42,7 +44,7 @@ namespace UI.Views
                 ShowContinueQuestion();
             }
 
-            new SummaryView(_order.Id).Display();
+            _navigator.ChangeView<SummaryView>();
         }
 
         private void FetchData()

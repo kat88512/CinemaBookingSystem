@@ -5,12 +5,17 @@ using UI.Extensions;
 
 namespace UI.Views
 {
-    internal class SummaryView(OrderService orderService, SessionContext context) : IView
+    internal class SummaryView(
+        OrderService orderService,
+        SessionContext context,
+        Navigator navigator
+    ) : IView
     {
         private Order _order = null!;
         private SessionContext _context = context;
 
         private readonly OrderService _orderService = orderService;
+        private readonly Navigator _navigator = navigator;
 
         public void Display()
         {
