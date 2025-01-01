@@ -4,13 +4,7 @@ namespace DataAccess.Repositories.ScreeningRepositories
 {
     public class ScreeningSeatInMemoryRepository : IScreeningSeatRepository
     {
-        public static ScreeningSeatInMemoryRepository Instance => _instance;
-
-        private static readonly ScreeningSeatInMemoryRepository _instance = new();
-
         private readonly List<ScreeningSeat> _screeningSeats = [];
-
-        private ScreeningSeatInMemoryRepository() { }
 
         public void Add(ScreeningSeat screeningSeat)
         {

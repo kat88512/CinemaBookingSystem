@@ -86,6 +86,7 @@ namespace UI.Views
                 else
                 {
                     _context.ScreeningId = _screenings[number].Id;
+                    break;
                 }
             }
         }

@@ -4,12 +4,7 @@ namespace DataAccess.Repositories.OrderRepositories
 {
     public class OrderInMemoryRepository : IOrderRepository
     {
-        public static OrderInMemoryRepository Instance => _instance;
-
-        private static readonly OrderInMemoryRepository _instance = new();
         private readonly List<Order> _orders = [];
-
-        private OrderInMemoryRepository() { }
 
         public void Add(Order order)
         {
