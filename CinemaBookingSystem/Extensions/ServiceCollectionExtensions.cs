@@ -49,6 +49,7 @@ namespace UI.Extensions
         public static ServiceCollection RegisterViewModels(this ServiceCollection services)
         {
             services.AddScoped<ScreeningViewModel>();
+            services.AddScoped<SeatPlanViewModel>();
 
             return services;
         }
