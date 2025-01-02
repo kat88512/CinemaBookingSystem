@@ -13,12 +13,13 @@ namespace Services.Seeders
         IScreeningSeatRepository screeningSeatRepository
     )
     {
-        public readonly IMovieRepository _movieRepository = movieRepository;
-        public readonly ICinemaRepository _cinemaRepository = cinemaRepository;
-        public readonly ICinemaRoomRepository _cinemaRoomRepository = cinemaRoomRepository;
+        private readonly IMovieRepository _movieRepository = movieRepository;
+        private readonly ICinemaRepository _cinemaRepository = cinemaRepository;
+        private readonly ICinemaRoomRepository _cinemaRoomRepository = cinemaRoomRepository;
 
-        public readonly IScreeningRepository _screeningRepository = screeningRepository;
-        public readonly IScreeningSeatRepository _screeningSeatRepository = screeningSeatRepository;
+        private readonly IScreeningRepository _screeningRepository = screeningRepository;
+        private readonly IScreeningSeatRepository _screeningSeatRepository =
+            screeningSeatRepository;
 
         private readonly Random _randomizer = new();
 
