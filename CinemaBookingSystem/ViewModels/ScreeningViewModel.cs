@@ -11,10 +11,10 @@ namespace UI.ViewModels
         SessionContext context
     )
     {
-        public Cinema Cinema { get; private set; }
-        public List<Screening> Screenings { get; private set; }
+        public Cinema Cinema { get; private set; } = null!;
+        public List<Screening> Screenings { get; private set; } = [];
 
-        private SessionContext _context = context;
+        private readonly SessionContext _context = context;
 
         private readonly CinemaService _cinemaService = cinemaService;
         private readonly ScreeningService _screeningService = screeningService;

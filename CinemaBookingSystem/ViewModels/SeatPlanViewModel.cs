@@ -13,11 +13,11 @@ namespace UI.ViewModels
         SessionContext context
     )
     {
-        public Order Order { get; private set; }
-        public Screening Screening { get; private set; }
-        public IEnumerable<ScreeningSeat> ScreeningSeats { get; private set; }
+        public Order Order { get; private set; } = null!;
+        public Screening Screening { get; private set; } = null!;
+        public IEnumerable<ScreeningSeat> ScreeningSeats { get; private set; } = [];
 
-        private SessionContext _context = context;
+        private readonly SessionContext _context = context;
 
         private readonly ScreeningService _screeningService = screeningService;
         private readonly ScreeningSeatService _screeningSeatService = screeningSeatService;

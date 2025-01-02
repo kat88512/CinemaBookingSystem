@@ -6,9 +6,9 @@ namespace UI.ViewModels
 {
     internal class SummaryViewModel(OrderService orderService, SessionContext context)
     {
-        public Order Order { get; private set; }
+        public Order Order { get; private set; } = null!;
 
-        private SessionContext _context = context;
+        private readonly SessionContext _context = context;
         private readonly OrderService _orderService = orderService;
 
         public void FetchData()
