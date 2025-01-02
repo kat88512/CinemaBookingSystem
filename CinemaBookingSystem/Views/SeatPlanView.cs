@@ -111,7 +111,7 @@ namespace UI.Views
 
         private void AddSeatToOrder()
         {
-            while (true)
+            while (_userIsOrdering)
             {
                 Console.Write("Choose available seat: ");
                 var input = Console.ReadLine();
@@ -151,7 +151,7 @@ namespace UI.Views
 
         private void ShowContinueQuestion()
         {
-            while (true)
+            while (_userIsOrdering)
             {
                 Console.Write("Do you want to add more seats? [Y/N]: ");
 
