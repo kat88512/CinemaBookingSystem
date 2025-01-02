@@ -13,6 +13,10 @@ namespace Services.Seeders
         IScreeningSeatRepository screeningSeatRepository
     )
     {
+        private readonly int _screeningsCount = 8;
+
+        private readonly Random _randomizer = new();
+
         private readonly IMovieRepository _movieRepository = movieRepository;
         private readonly ICinemaRepository _cinemaRepository = cinemaRepository;
         private readonly ICinemaRoomRepository _cinemaRoomRepository = cinemaRoomRepository;
@@ -21,16 +25,12 @@ namespace Services.Seeders
         private readonly IScreeningSeatRepository _screeningSeatRepository =
             screeningSeatRepository;
 
-        private readonly Random _randomizer = new();
-
         public void Seed()
         {
-            var screeningsCount = 8;
-
             AddCinema();
             AddCinemaRooms();
             AddMovies();
-            AddScreeningsAndSeats(screeningsCount);
+            AddScreeningsAndSeats(_screeningsCount);
         }
 
         private void AddCinema()
