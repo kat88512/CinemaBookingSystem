@@ -37,19 +37,20 @@ namespace UI.Extensions
             return services;
         }
 
+        public static ServiceCollection RegisterViewModels(this ServiceCollection services)
+        {
+            services.AddScoped<ScreeningViewModel>();
+            services.AddScoped<SeatPlanViewModel>();
+            services.AddScoped<SummaryViewModel>();
+
+            return services;
+        }
+
         public static ServiceCollection RegisterViews(this ServiceCollection services)
         {
             services.AddTransient<ScreeningsView>();
             services.AddTransient<SeatPlanView>();
             services.AddTransient<SummaryView>();
-
-            return services;
-        }
-
-        public static ServiceCollection RegisterViewModels(this ServiceCollection services)
-        {
-            services.AddScoped<ScreeningViewModel>();
-            services.AddScoped<SeatPlanViewModel>();
 
             return services;
         }
