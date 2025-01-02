@@ -61,7 +61,16 @@ namespace Services.Services
                 };
             }
 
-            var screening = _screenings.GetById(seat.ScreeningId)!;
+            var screening = _screenings.GetById(seat.ScreeningId);
+
+            if (screening is null)
+            {
+                return new Response<Order>
+                {
+                    IsSuccess = false,
+                    ErrorMessage = "Screening does not exist"
+                };
+            }
 
             if (screening.TimeFrom < DateTime.Now)
             {

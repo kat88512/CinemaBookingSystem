@@ -2,27 +2,34 @@
 using DataAccess.Repositories.ScreeningRepositories;
 using Domain.Models.OrderModels;
 using Domain.Models.ScreeningModels;
-using Services.Requests.OrderRequests;
+using Services.Services;
 using Tests.Builders;
 
 namespace Tests.OrderTests
 {
     [TestFixture]
-    internal class AddScreeningSeatToOrderTests
+    internal class OrderServiceTests
     {
-        private readonly IScreeningRepository _screenings = ScreeningInMemoryRepository.Instance;
-        private readonly IScreeningSeatRepository _screeningSeats =
-            ScreeningSeatInMemoryRepository.Instance;
-        private readonly IOrderRepository _orders = OrderInMemoryRepository.Instance;
+        private IScreeningRepository _screenings;
+        private IScreeningSeatRepository _screeningSeats;
+        private IOrderRepository _orders;
+
+        private OrderService _orderService;
 
         [SetUp]
-        public void Setup() { }
+        public void Setup()
+        {
+            _screenings = new ScreeningInMemoryRepository();
+            _screeningSeats = new ScreeningSeatInMemoryRepository();
+            _orders = new OrderInMemoryRepository();
+
+            _orderService = new OrderService(_orders, _screenings, _screeningSeats);
+        }
 
         [Test]
         public void ShouldAddSeatToOrder()
         {
             var screening = ScreeningBuilder.Create().WithDefaultData().Build();
-
             var screeningSeat = new ScreeningSeat(screening.Id, 5, 5);
             var order = new Order();
 
@@ -30,7 +37,7 @@ namespace Tests.OrderTests
             _screeningSeats.Add(screeningSeat);
             _orders.Add(order);
 
-            new AddScreeningSeatToOrder(screeningSeat.Id, order.Id).Execute();
+            _orderService.AddScreeningSeatToOrder(order.Id, screeningSeat.Id);
 
             var changedOrder = _orders.GetById(order.Id)!;
             Assert.That(changedOrder.Items.Any(), Is.True);
@@ -54,7 +61,7 @@ namespace Tests.OrderTests
             _screeningSeats.Add(screeningSeat);
             _orders.Add(order);
 
-            new AddScreeningSeatToOrder(screeningSeat.Id, order.Id).Execute();
+            _orderService.AddScreeningSeatToOrder(order.Id, screeningSeat.Id);
 
             var changedOrder = _orders.GetById(order.Id)!;
             Assert.That(changedOrder.Items.Any(), Is.False);
@@ -72,7 +79,7 @@ namespace Tests.OrderTests
             _screeningSeats.Add(screeningSeat);
             _orders.Add(order);
 
-            new AddScreeningSeatToOrder(screeningSeat.Id, order.Id).Execute();
+            _orderService.AddScreeningSeatToOrder(order.Id, screeningSeat.Id);
 
             var changedOrder = _orders.GetById(order.Id)!;
             Assert.That(changedOrder.Items.Any(), Is.False);
@@ -87,7 +94,7 @@ namespace Tests.OrderTests
             _screeningSeats.Add(screeningSeat);
             _orders.Add(order);
 
-            new AddScreeningSeatToOrder(screeningSeat.Id, order.Id).Execute();
+            _orderService.AddScreeningSeatToOrder(order.Id, screeningSeat.Id);
 
             var changedOrder = _orders.GetById(order.Id)!;
             Assert.That(changedOrder.Items.Any(), Is.False);
