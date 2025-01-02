@@ -1,34 +1,20 @@
-﻿using Domain.Models.OrderModels;
-using Services.Services;
-using UI.DataContext;
-using UI.Extensions;
+﻿using UI.Extensions;
+using UI.ViewModels;
 
 namespace UI.Views
 {
-    internal class SummaryView(
-        OrderService orderService,
-        SessionContext context,
-        Navigator navigator
-    ) : IView
+    internal class SummaryView(SummaryViewModel viewModel, Navigator navigator) : IView
     {
-        private Order _order = null!;
-        private SessionContext _context = context;
-
-        private readonly OrderService _orderService = orderService;
+        private readonly SummaryViewModel _viewModel = viewModel;
         private readonly Navigator _navigator = navigator;
 
         public void Display()
         {
             Console.Clear();
 
-            FetchData();
+            _viewModel.FetchData();
 
             PrintOrderSummary();
-        }
-
-        private void FetchData()
-        {
-            _order = _orderService.GetOrderDetails(_context.OrderId).Value!;
         }
 
         private void PrintOrderSummary()
@@ -36,7 +22,7 @@ namespace UI.Views
             Console.WriteLine("Your order summary: \n");
             ConsoleExtensions.WriteLineInColor("Seats:\n", foregroundColor: ConsoleColor.Cyan);
 
-            foreach (var item in _order.Items)
+            foreach (var item in _viewModel.Order.Items)
             {
                 ConsoleExtensions.WriteInColor(
                     $"{item.ScreeningSeat} ",
@@ -47,7 +33,7 @@ namespace UI.Views
 
             Console.WriteLine();
             ConsoleExtensions.WriteInColor("Value to pay: ", foregroundColor: ConsoleColor.Cyan);
-            Console.WriteLine($"{_order.ValueToPay} zł");
+            Console.WriteLine($"{_viewModel.Order.ValueToPay} zł");
         }
     }
 }

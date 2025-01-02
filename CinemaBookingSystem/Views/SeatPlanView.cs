@@ -1,40 +1,25 @@
-﻿using Domain.Models.OrderModels;
-using Domain.Models.ScreeningModels;
-using Services.Services;
-using UI.Consts;
-using UI.DataContext;
+﻿using UI.Consts;
 using UI.Extensions;
+using UI.ViewModels;
 
 namespace UI.Views
 {
-    internal class SeatPlanView(
-        ScreeningService screeningService,
-        ScreeningSeatService screeningSeatService,
-        OrderService orderService,
-        SessionContext context,
-        Navigator navigator
-    ) : IView
+    internal class SeatPlanView(SeatPlanViewModel viewModel, Navigator navigator) : IView
     {
-        private Order _order = null!;
-        private Screening _screening = null!;
-        private IEnumerable<ScreeningSeat> _screeningSeats = null!;
-        private SessionContext _context = context;
-
         private bool _userIsOrdering = true;
 
-        private readonly ScreeningService _screeningService = screeningService;
-        private readonly ScreeningSeatService _screeningSeatService = screeningSeatService;
-        private readonly OrderService _orderService = orderService;
+        private readonly SeatPlanViewModel _viewModel = viewModel;
         private readonly Navigator _navigator = navigator;
 
         public void Display()
         {
             Console.Clear();
-            CreateOrder();
+            _viewModel.CreateOrder();
+            _viewModel.AddOrderContext(_viewModel.Order.Id);
 
             while (_userIsOrdering)
             {
-                FetchData();
+                _viewModel.FetchData();
 
                 PrintSeats();
                 PrintKey();
@@ -47,28 +32,16 @@ namespace UI.Views
             _navigator.ChangeView<SummaryView>();
         }
 
-        private void FetchData()
-        {
-            _screening = _screeningService.GetScreeningDetails(_context.ScreeningId).Value!;
-            _screeningSeats = _screeningSeatService.GetScreeningSeats(_context.ScreeningId).Value!;
-        }
-
-        private void CreateOrder()
-        {
-            _order = _orderService.AddOrder().Value!;
-            _context.OrderId = _order.Id;
-        }
-
         private void PrintSeats()
         {
-            var movieName = _screening.Movie.Name;
-            var formattedStartDate = _screening.TimeFrom.ToString(Formats.DateTimeFormat);
+            var movieName = _viewModel.Screening.Movie.Name;
+            var formattedStartDate = _viewModel.Screening.TimeFrom.ToString(Formats.DateTimeFormat);
 
             Console.WriteLine(
                 $"Available seats for screening '{movieName}' on {formattedStartDate}: \n"
             );
 
-            var orderedSeats = _screeningSeats.OrderBy(s => s.Row).ThenBy(s => s.Number);
+            var orderedSeats = _viewModel.ScreeningSeats.OrderBy(s => s.Row).ThenBy(s => s.Number);
             var rowNumber = orderedSeats.First().Row;
 
             foreach (var seat in orderedSeats)
@@ -118,13 +91,13 @@ namespace UI.Views
         {
             Console.Write("Your seats: ");
 
-            if (!_order.Items.Any())
+            if (!_viewModel.Order.Items.Any())
             {
                 Console.WriteLine("none!\n");
                 return;
             }
 
-            foreach (var item in _order.Items)
+            foreach (var item in _viewModel.Order.Items)
             {
                 ConsoleExtensions.WriteInColor(
                     $"{item.ScreeningSeat} ",
@@ -138,7 +111,7 @@ namespace UI.Views
 
         private void AddSeatToOrder()
         {
-            while (true)
+            while (_userIsOrdering)
             {
                 Console.Write("Choose available seat: ");
                 var input = Console.ReadLine();
@@ -153,7 +126,7 @@ namespace UI.Views
                     continue;
                 }
 
-                var seat = _screeningSeats.FirstOrDefault(ss =>
+                var seat = _viewModel.ScreeningSeats.FirstOrDefault(ss =>
                     ss.Row == rowNumber && ss.Number == seatNumber
                 );
 
@@ -163,7 +136,7 @@ namespace UI.Views
                     continue;
                 }
 
-                var result = _orderService.AddScreeningSeatToOrder(_order.Id, seat.Id);
+                var result = _viewModel.AddScreeningSeatToOrder(seat.Id);
 
                 if (!result.IsSuccess)
                 {
@@ -178,7 +151,7 @@ namespace UI.Views
 
         private void ShowContinueQuestion()
         {
-            while (true)
+            while (_userIsOrdering)
             {
                 Console.Write("Do you want to add more seats? [Y/N]: ");
 

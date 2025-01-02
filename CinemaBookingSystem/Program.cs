@@ -11,6 +11,7 @@ services.RegisterServices();
 
 services.AddScoped<SessionContext>();
 
+services.RegisterViewModels();
 services.RegisterViews();
 
 services.AddSingleton<IServiceProvider>(sp => sp);

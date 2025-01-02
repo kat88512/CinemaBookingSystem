@@ -11,7 +11,7 @@ namespace UI
             where TView : IView
         {
             var type = typeof(TView);
-            Console.WriteLine(type);
+
             var view = (IView)serviceProvider.GetRequiredService(type);
 
             view.Display();

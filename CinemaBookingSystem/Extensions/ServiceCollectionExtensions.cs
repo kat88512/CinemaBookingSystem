@@ -4,6 +4,7 @@ using DataAccess.Repositories.OrderRepositories;
 using DataAccess.Repositories.ScreeningRepositories;
 using Microsoft.Extensions.DependencyInjection;
 using Services.Services;
+using UI.ViewModels;
 using UI.Views;
 
 namespace UI.Extensions
@@ -32,6 +33,15 @@ namespace UI.Extensions
 
             services.AddScoped<ScreeningService>();
             services.AddScoped<ScreeningSeatService>();
+
+            return services;
+        }
+
+        public static ServiceCollection RegisterViewModels(this ServiceCollection services)
+        {
+            services.AddScoped<ScreeningViewModel>();
+            services.AddScoped<SeatPlanViewModel>();
+            services.AddScoped<SummaryViewModel>();
 
             return services;
         }
