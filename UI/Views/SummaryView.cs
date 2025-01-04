@@ -3,10 +3,16 @@ using UI.ViewModels;
 
 namespace UI.Views
 {
-    internal class SummaryView(SummaryViewModel viewModel, Navigator navigator) : IView
+    internal class SummaryView : IView
     {
-        private readonly SummaryViewModel _viewModel = viewModel;
-        private readonly Navigator _navigator = navigator;
+        private readonly SummaryViewModel _viewModel;
+        private readonly Navigator _navigator;
+
+        public SummaryView(SummaryViewModel viewModel, Navigator navigator)
+        {
+            _viewModel = viewModel;
+            _navigator = navigator;
+        }
 
         public void Display()
         {

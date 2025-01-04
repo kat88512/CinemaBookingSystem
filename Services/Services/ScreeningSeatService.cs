@@ -4,9 +4,14 @@ using Services.Requests;
 
 namespace Services.Services
 {
-    public class ScreeningSeatService(IScreeningSeatRepository screeningSeatRepository)
+    public class ScreeningSeatService
     {
-        private readonly IScreeningSeatRepository _screeningSeats = screeningSeatRepository;
+        private readonly IScreeningSeatRepository _screeningSeats;
+
+        public ScreeningSeatService(IScreeningSeatRepository screeningSeatRepository)
+        {
+            _screeningSeats = screeningSeatRepository;
+        }
 
         public Response<IEnumerable<ScreeningSeat>> GetScreeningSeats(Guid screeningId)
         {

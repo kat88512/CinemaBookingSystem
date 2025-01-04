@@ -5,10 +5,16 @@ using UI.ViewModels;
 
 namespace UI.Views
 {
-    internal class ScreeningsView(ScreeningViewModel viewModel, Navigator navigator) : IView
+    internal class ScreeningsView : IView
     {
-        private readonly ScreeningViewModel _viewModel = viewModel;
-        private readonly Navigator _navigator = navigator;
+        private readonly ScreeningViewModel _viewModel;
+        private readonly Navigator _navigator;
+
+        public ScreeningsView(ScreeningViewModel viewModel, Navigator navigator)
+        {
+            _viewModel = viewModel;
+            _navigator = navigator;
+        }
 
         public void Display()
         {

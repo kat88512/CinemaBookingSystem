@@ -6,27 +6,36 @@ using Domain.Models.ScreeningModels;
 
 namespace Services.Seeders
 {
-    public class MainSeeder(
-        IUserRepository userRepository,
-        IMovieRepository movieRepository,
-        ICinemaRepository cinemaRepository,
-        ICinemaRoomRepository cinemaRoomRepository,
-        IScreeningRepository screeningRepository,
-        IScreeningSeatRepository screeningSeatRepository
-    )
+    public class MainSeeder
     {
         private readonly int _screeningsCount = 8;
 
         private readonly Random _randomizer = new();
 
-        private readonly IUserRepository _userRepository = userRepository;
-        private readonly IMovieRepository _movieRepository = movieRepository;
-        private readonly ICinemaRepository _cinemaRepository = cinemaRepository;
-        private readonly ICinemaRoomRepository _cinemaRoomRepository = cinemaRoomRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly IMovieRepository _movieRepository;
+        private readonly ICinemaRepository _cinemaRepository;
+        private readonly ICinemaRoomRepository _cinemaRoomRepository;
 
-        private readonly IScreeningRepository _screeningRepository = screeningRepository;
-        private readonly IScreeningSeatRepository _screeningSeatRepository =
-            screeningSeatRepository;
+        private readonly IScreeningRepository _screeningRepository;
+        private readonly IScreeningSeatRepository _screeningSeatRepository;
+
+        public MainSeeder(
+            IUserRepository userRepository,
+            IMovieRepository movieRepository,
+            ICinemaRepository cinemaRepository,
+            ICinemaRoomRepository cinemaRoomRepository,
+            IScreeningRepository screeningRepository,
+            IScreeningSeatRepository screeningSeatRepository
+        )
+        {
+            _userRepository = userRepository;
+            _movieRepository = movieRepository;
+            _cinemaRepository = cinemaRepository;
+            _cinemaRoomRepository = cinemaRoomRepository;
+            _screeningRepository = screeningRepository;
+            _screeningSeatRepository = screeningSeatRepository;
+        }
 
         public void Seed()
         {
