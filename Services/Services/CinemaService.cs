@@ -4,9 +4,14 @@ using Services.Requests;
 
 namespace Services.Services
 {
-    public class CinemaService(ICinemaRepository cinemaRepository)
+    public class CinemaService
     {
-        private readonly ICinemaRepository _cinemas = cinemaRepository;
+        private readonly ICinemaRepository _cinemas;
+
+        public CinemaService(ICinemaRepository cinemaRepository)
+        {
+            _cinemas = cinemaRepository;
+        }
 
         public Response<Cinema> GetCinemaDetails()
         {

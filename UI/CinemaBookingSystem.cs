@@ -4,10 +4,16 @@ using UI.Views;
 
 namespace UI
 {
-    internal class CinemaBookingSystem(Navigator navigator, MainSeeder seeder)
+    internal class CinemaBookingSystem
     {
-        private readonly Navigator _navigator = navigator;
-        private readonly MainSeeder _seeder = seeder;
+        private readonly Navigator _navigator;
+        private readonly MainSeeder _seeder;
+
+        public CinemaBookingSystem(Navigator navigator, MainSeeder seeder)
+        {
+            _navigator = navigator;
+            _seeder = seeder;
+        }
 
         public void Run()
         {

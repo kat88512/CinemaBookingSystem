@@ -6,22 +6,30 @@ using UI.DataContext;
 
 namespace UI.ViewModels
 {
-    internal class SeatPlanViewModel(
-        ScreeningService screeningService,
-        ScreeningSeatService screeningSeatService,
-        OrderService orderService,
-        SessionContext context
-    )
+    internal class SeatPlanViewModel
     {
         public Order Order { get; private set; } = null!;
         public Screening Screening { get; private set; } = null!;
         public IEnumerable<ScreeningSeat> ScreeningSeats { get; private set; } = [];
 
-        private readonly SessionContext _context = context;
+        private readonly SessionContext _context;
 
-        private readonly ScreeningService _screeningService = screeningService;
-        private readonly ScreeningSeatService _screeningSeatService = screeningSeatService;
-        private readonly OrderService _orderService = orderService;
+        private readonly ScreeningService _screeningService;
+        private readonly ScreeningSeatService _screeningSeatService;
+        private readonly OrderService _orderService;
+
+        public SeatPlanViewModel(
+            ScreeningService screeningService,
+            ScreeningSeatService screeningSeatService,
+            OrderService orderService,
+            SessionContext context
+        )
+        {
+            _screeningService = screeningService;
+            _screeningSeatService = screeningSeatService;
+            _orderService = orderService;
+            _context = context;
+        }
 
         public void FetchData()
         {

@@ -3,9 +3,14 @@ using UI.Views;
 
 namespace UI
 {
-    internal class Navigator(IServiceProvider serviceProvider)
+    internal class Navigator
     {
-        private readonly IServiceProvider serviceProvider = serviceProvider;
+        private readonly IServiceProvider serviceProvider;
+
+        public Navigator(IServiceProvider serviceProvider)
+        {
+            this.serviceProvider = serviceProvider;
+        }
 
         public void ChangeView<TView>()
             where TView : IView

@@ -4,12 +4,18 @@ using UI.ViewModels;
 
 namespace UI.Views
 {
-    internal class SeatPlanView(SeatPlanViewModel viewModel, Navigator navigator) : IView
+    internal class SeatPlanView : IView
     {
         private bool _userIsOrdering = true;
 
-        private readonly SeatPlanViewModel _viewModel = viewModel;
-        private readonly Navigator _navigator = navigator;
+        private readonly SeatPlanViewModel _viewModel;
+        private readonly Navigator _navigator;
+
+        public SeatPlanView(SeatPlanViewModel viewModel, Navigator navigator)
+        {
+            _viewModel = viewModel;
+            _navigator = navigator;
+        }
 
         public void Display()
         {

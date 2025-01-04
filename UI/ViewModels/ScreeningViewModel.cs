@@ -6,22 +6,30 @@ using UI.DataContext;
 
 namespace UI.ViewModels
 {
-    internal class ScreeningViewModel(
-        CinemaService cinemaService,
-        ScreeningService screeningService,
-        UserService userService,
-        SessionContext context
-    )
+    internal class ScreeningViewModel
     {
         public User User { get; private set; } = null!;
         public Cinema Cinema { get; private set; } = null!;
         public List<Screening> Screenings { get; private set; } = [];
 
-        private readonly SessionContext _context = context;
+        private readonly SessionContext _context;
 
-        private readonly CinemaService _cinemaService = cinemaService;
-        private readonly ScreeningService _screeningService = screeningService;
-        private readonly UserService _userService = userService;
+        private readonly CinemaService _cinemaService;
+        private readonly ScreeningService _screeningService;
+        private readonly UserService _userService;
+
+        public ScreeningViewModel(
+            CinemaService cinemaService,
+            ScreeningService screeningService,
+            UserService userService,
+            SessionContext context
+        )
+        {
+            _cinemaService = cinemaService;
+            _screeningService = screeningService;
+            _userService = userService;
+            _context = context;
+        }
 
         public void FetchData()
         {

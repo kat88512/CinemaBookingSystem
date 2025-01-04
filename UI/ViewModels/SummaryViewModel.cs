@@ -4,12 +4,18 @@ using UI.DataContext;
 
 namespace UI.ViewModels
 {
-    internal class SummaryViewModel(OrderService orderService, SessionContext context)
+    internal class SummaryViewModel
     {
         public Order Order { get; private set; } = null!;
 
-        private readonly SessionContext _context = context;
-        private readonly OrderService _orderService = orderService;
+        private readonly SessionContext _context;
+        private readonly OrderService _orderService;
+
+        public SummaryViewModel(OrderService orderService, SessionContext context)
+        {
+            _orderService = orderService;
+            _context = context;
+        }
 
         public void FetchData()
         {

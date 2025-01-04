@@ -4,9 +4,14 @@ using Services.Requests;
 
 namespace Services.Services
 {
-    public class UserService(IUserRepository userRepository)
+    public class UserService
     {
-        private readonly IUserRepository _users = userRepository;
+        private readonly IUserRepository _users;
+
+        public UserService(IUserRepository userRepository)
+        {
+            _users = userRepository;
+        }
 
         public Response<User> GetUserDetails()
         {

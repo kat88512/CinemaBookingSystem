@@ -7,17 +7,25 @@ using Services.Requests;
 
 namespace Services.Services
 {
-    public class OrderService(
-        IOrderRepository orderRepository,
-        IScreeningRepository screeningRepository,
-        IScreeningSeatRepository screeningSeatRepository,
-        IUserRepository userRepository
-    )
+    public class OrderService
     {
-        private readonly IOrderRepository _orders = orderRepository;
-        private readonly IScreeningRepository _screenings = screeningRepository;
-        private readonly IScreeningSeatRepository _screeningSeats = screeningSeatRepository;
-        private readonly IUserRepository _users = userRepository;
+        private readonly IOrderRepository _orders;
+        private readonly IScreeningRepository _screenings;
+        private readonly IScreeningSeatRepository _screeningSeats;
+        private readonly IUserRepository _users;
+
+        public OrderService(
+            IOrderRepository orderRepository,
+            IScreeningRepository screeningRepository,
+            IScreeningSeatRepository screeningSeatRepository,
+            IUserRepository userRepository
+        )
+        {
+            _orders = orderRepository;
+            _screenings = screeningRepository;
+            _screeningSeats = screeningSeatRepository;
+            _users = userRepository;
+        }
 
         public Response<Order> AddOrder(Guid userId)
         {
