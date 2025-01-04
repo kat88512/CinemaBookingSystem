@@ -1,11 +1,13 @@
 ﻿using DataAccess.Repositories.CinemaRepositories;
 using DataAccess.Repositories.MovieRepositories;
 using DataAccess.Repositories.ScreeningRepositories;
+using DataAccess.Repositories.UserRepositories;
 using Domain.Models.ScreeningModels;
 
 namespace Services.Seeders
 {
     public class MainSeeder(
+        IUserRepository userRepository,
         IMovieRepository movieRepository,
         ICinemaRepository cinemaRepository,
         ICinemaRoomRepository cinemaRoomRepository,
@@ -17,6 +19,7 @@ namespace Services.Seeders
 
         private readonly Random _randomizer = new();
 
+        private readonly IUserRepository _userRepository = userRepository;
         private readonly IMovieRepository _movieRepository = movieRepository;
         private readonly ICinemaRepository _cinemaRepository = cinemaRepository;
         private readonly ICinemaRoomRepository _cinemaRoomRepository = cinemaRoomRepository;
@@ -27,10 +30,16 @@ namespace Services.Seeders
 
         public void Seed()
         {
+            AddUser();
             AddCinema();
             AddCinemaRooms();
             AddMovies();
             AddScreeningsAndSeats(_screeningsCount);
+        }
+
+        private void AddUser()
+        {
+            _userRepository.Add(SeedData.User);
         }
 
         private void AddCinema()
