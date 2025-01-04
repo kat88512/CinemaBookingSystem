@@ -6,11 +6,11 @@ namespace Tests.Builders
 {
     public class ScreeningBuilder
     {
-        private Movie Movie { get; set; }
-        private CinemaRoom CinemaRoom { get; set; }
-        private DateTime TimeFrom { get; set; }
-        private DateTime TimeTo { get; set; }
-        private VideoTechnology VideoTechnology { get; set; }
+        private Movie _movie;
+        private CinemaRoom _cinemaRoom;
+        private DateTime _timeFrom;
+        private DateTime _timeTo;
+        private VideoTechnology _videoTechnology;
 
         private ScreeningBuilder() { }
 
@@ -21,33 +21,33 @@ namespace Tests.Builders
 
         public Screening Build()
         {
-            return new Screening(Movie, CinemaRoom, TimeFrom, TimeTo, VideoTechnology);
+            return new Screening(_movie, _cinemaRoom, _timeFrom, _timeTo, _videoTechnology);
         }
 
         public ScreeningBuilder WithDefaultData()
         {
             var tomorrow = DateTime.Now.AddDays(1);
 
-            Movie = new Movie("Test movie name");
-            CinemaRoom = new CinemaRoom(Guid.NewGuid(), 1, CinemaRoomType.Large);
-            TimeFrom = tomorrow;
-            TimeTo = TimeFrom.AddHours(2);
-            VideoTechnology = VideoTechnology.TwoDimensional;
+            _movie = new Movie("Test movie name");
+            _cinemaRoom = new CinemaRoom(Guid.NewGuid(), 1, CinemaRoomType.Large);
+            _timeFrom = tomorrow;
+            _timeTo = _timeFrom.AddHours(2);
+            _videoTechnology = VideoTechnology.TwoDimensional;
 
             return this;
         }
 
         public ScreeningBuilder WithTime(DateTime timeFrom, TimeSpan duration)
         {
-            TimeFrom = timeFrom;
-            TimeTo = timeFrom.Add(duration);
+            _timeFrom = timeFrom;
+            _timeTo = timeFrom.Add(duration);
 
             return this;
         }
 
         public ScreeningBuilder WithVideoTechnology(VideoTechnology videoTechnology)
         {
-            VideoTechnology = videoTechnology;
+            _videoTechnology = videoTechnology;
 
             return this;
         }
