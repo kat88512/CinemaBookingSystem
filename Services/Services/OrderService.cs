@@ -1,5 +1,6 @@
 ﻿using DataAccess.Repositories.OrderRepositories;
 using DataAccess.Repositories.ScreeningRepositories;
+using DataAccess.Repositories.UserRepositories;
 using Domain.Consts;
 using Domain.Models.OrderModels;
 using Services.Requests;
@@ -9,16 +10,29 @@ namespace Services.Services
     public class OrderService(
         IOrderRepository orderRepository,
         IScreeningRepository screeningRepository,
-        IScreeningSeatRepository screeningSeatRepository
+        IScreeningSeatRepository screeningSeatRepository,
+        IUserRepository userRepository
     )
     {
         private readonly IOrderRepository _orders = orderRepository;
         private readonly IScreeningRepository _screenings = screeningRepository;
         private readonly IScreeningSeatRepository _screeningSeats = screeningSeatRepository;
+        private readonly IUserRepository _users = userRepository;
 
-        public Response<Order> AddOrder()
+        public Response<Order> AddOrder(Guid userId)
         {
-            var order = new Order();
+            var user = _users.GetById(userId);
+
+            if (user is null)
+            {
+                return new Response<Order>
+                {
+                    IsSuccess = false,
+                    ErrorMessage = "User does not exist"
+                };
+            }
+
+            var order = new Order(userId);
             _orders.Add(order);
 
             return new Response<Order> { IsSuccess = true, Value = order };

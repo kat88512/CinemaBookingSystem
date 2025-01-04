@@ -15,7 +15,6 @@ namespace UI.Views
         {
             Console.Clear();
             _viewModel.CreateOrder();
-            _viewModel.AddOrderContext(_viewModel.Order.Id);
 
             while (_userIsOrdering)
             {

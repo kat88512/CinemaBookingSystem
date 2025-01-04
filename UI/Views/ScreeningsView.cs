@@ -72,7 +72,7 @@ namespace UI.Views
                 else
                 {
                     var screeningId = _viewModel.Screenings[number].Id;
-                    _viewModel.AddScreeningContext(screeningId);
+                    _viewModel.ChooseScreening(screeningId);
 
                     break;
                 }

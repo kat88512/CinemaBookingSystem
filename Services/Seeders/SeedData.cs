@@ -1,10 +1,17 @@
 ﻿using Domain.Models.CinemaModels;
 using Domain.Models.MovieModels;
+using Domain.Models.UserModels;
 
 namespace Services.Seeders
 {
     internal static class SeedData
     {
+        private const string UserFirstName = "Adam";
+        private const string UserLastName = "Nowak";
+        private const string UserEmail = "adam.nowak@example.com";
+
+        public static readonly User User = new User(UserFirstName, UserLastName, UserEmail);
+
         private const string CinemaName = "Megakino";
         private const string CinemaCity = "Kalisz";
 
