@@ -2,6 +2,7 @@
 using DataAccess.Repositories.MovieRepositories;
 using DataAccess.Repositories.OrderRepositories;
 using DataAccess.Repositories.ScreeningRepositories;
+using DataAccess.Repositories.UserRepositories;
 using Microsoft.Extensions.DependencyInjection;
 using Services.Services;
 using UI.ViewModels;
@@ -23,6 +24,8 @@ namespace UI.Extensions
             services.AddSingleton<IScreeningRepository, ScreeningInMemoryRepository>();
             services.AddSingleton<IScreeningSeatRepository, ScreeningSeatInMemoryRepository>();
 
+            services.AddSingleton<IUserRepository, UserInMemoryRepository>();
+
             return services;
         }
 
@@ -33,6 +36,8 @@ namespace UI.Extensions
 
             services.AddScoped<ScreeningService>();
             services.AddScoped<ScreeningSeatService>();
+
+            services.AddScoped<UserService>();
 
             return services;
         }

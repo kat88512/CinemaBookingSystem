@@ -31,17 +31,13 @@ namespace UI.ViewModels
 
         public void CreateOrder()
         {
-            Order = _orderService.AddOrder().Value!;
+            Order = _orderService.AddOrder(_context.UserId).Value!;
+            _context.OrderId = Order.Id;
         }
 
         public Response<Order> AddScreeningSeatToOrder(Guid seatId)
         {
             return _orderService.AddScreeningSeatToOrder(Order.Id, seatId);
-        }
-
-        public void AddOrderContext(Guid orderId)
-        {
-            _context.OrderId = orderId;
         }
     }
 }
