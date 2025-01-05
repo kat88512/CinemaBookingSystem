@@ -10,7 +10,7 @@ namespace Domain.Models.ScreeningModels
         public CinemaRoom CinemaRoom { get; private init; }
         public DateTime TimeFrom { get; private set; }
         public DateTime TimeTo { get; private set; }
-        public int DurationInMinutes => (TimeTo - TimeFrom).Duration().Minutes;
+        public int DurationInMinutes => CalculateDurationInMinutes();
 
         public VideoTechnology VideoTechnology { get; private set; }
 
@@ -27,6 +27,14 @@ namespace Domain.Models.ScreeningModels
             TimeFrom = timeFrom;
             TimeTo = timeTo;
             VideoTechnology = videoTechnology;
+        }
+
+        private int CalculateDurationInMinutes()
+        {
+            var duration = (TimeTo - TimeFrom).Duration();
+            var minutes = (int)Math.Ceiling(duration.TotalMinutes);
+
+            return minutes;
         }
     }
 }
